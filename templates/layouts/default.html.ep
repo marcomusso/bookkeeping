@@ -1,0 +1,164 @@
+<%# % my $dbh = $self->db; %>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
+<html>
+<head>
+  <title><%= title %></title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+  <meta http-equiv="PRAGMA" content="NO-CACHE">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome-1" />
+
+  <%# ################################################### %>
+  <%# HTML5 boilerplate %>
+  <%# ################################################### %>
+    %= stylesheet "/html5-boilerplate-4.3.0/css/normalize.css"
+    <%# Il seguente css e' quello di html5boilerplate, puo' essere bene includerlo in bookkeeping.css %>
+    %= stylesheet "/html5-boilerplate-4.3.0/css/main.css"
+    %= javascript "/html5-boilerplate-4.3.0/js/vendor/modernizr-2.6.2.min.js"
+
+  <%# ################################################### %>
+  <%# Some (ehm a lot :) js magic %>
+  <%# ################################################### %>
+    <%# jQuery %>
+      <%# jQuery 2.1.1 w/ compatibility for IE>=9 %>
+      %= javascript '/js/jquery-2.1.1.min.js'
+
+    <%# html5boilerplate %>
+      %= javascript "/html5-boilerplate-4.3.0/js/plugins.js"
+      %= javascript "/html5-boilerplate-4.3.0/js/main.js"
+
+    <%# intro.js %>
+      %= javascript '/js/intro.min.js'
+      %= stylesheet '/css/introjs.min.css'
+
+    <%# bootstrap! %>
+      %= javascript "/bootstrap-3.3.1/js/bootstrap.js"
+      %= stylesheet "/bootstrap-3.3.1/css/bootstrap.css"
+
+    <%# datetimepicker %>
+      %= javascript '/js/bootstrap-datetimepicker.js'
+      %= javascript '/js/locales/bootstrap-datetimepicker.it.js'
+      %= stylesheet '/css/bootstrap-datetimepicker.css'
+
+    <%# growl-like notifications %>
+      %= javascript '/bootstrap-growl-2.0.1/bootstrap-growl.min.js'
+      %= stylesheet '/css/animate.css'
+
+    <%# main js, common to all pages %>
+      %= javascript '/js/default.js'
+
+    <%# stylesheet utente (tema) %>
+      % if ($self->session('theme') and ($self->session('theme') ne 'default')) {
+        <link href="/css/bootstrap-themes/bootstrap-<%== $self->session('theme') %>.min.css" rel="stylesheet" />
+      % }
+
+    <%# project stylesheet %>
+      %= stylesheet '/css/bookkeeping.css'
+
+    <%# Font Awesome! %>
+      <%# CC-BY-3.0, so we also include a mention of Font Awesome and its URL in the source code. %>
+      <%# http://fortawesome.github.io/Font-Awesome/ %>
+      %= stylesheet '/font-awesome-4.2.0/css/font-awesome.min.css'
+</head>
+
+<body>
+
+<!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<%# ################################################### %>
+<%# Top navbar %>
+<%# ################################################### %>
+  <div id="top-navbar" class="navbar navbar-inverse navbar-fixed-top bookkeeping-navbar" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/credits"><img class="bookkeeping_logo" src=/images/bookkeeping.png /></a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <p class="navbar-text ">BookKeeping <span class="versione_alpha"><%== $self->stash('version') %></span></p>
+          <li id="nav1" class="dropdown" data-step="1">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Main<b class="caret"></b></a>
+            <ul class="dropdown-menu multi-level">
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Invoices</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/invoices/receivable"><i class="fa fa-check text-success"></i>&nbsp;Receivable</a></li>
+                  <li><a href="/invoices/payable"><i class="fa fa-check text-success"></i>&nbsp;Payable</a></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li><a href="/preferences"><i class="fa fa-check text-success"></i>&nbsp;Preferences</a></li>
+            </ul>
+          </li>
+          <%# <li id="prefs" data-step="2"><a href="/preferences"><i class="fa fa-gear"></i></a></li> %>
+          <li id="nav0" data-step="2"><a href="/"><i class="fa fa-home"></i></a></li>
+          % if (defined $self->session->{email} and $self->session->{role} eq 'admin') {
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Backoffice&nbsp;<b class="caret"></b></a>
+              <ul class="dropdown-menu multi-level">
+                <li><a href="/config"><i class="fa fa-times text-danger"></i>&nbsp;Configuration</a></li>
+                <li><a href="/books"><i class="fa fa-check text-success"></i>&nbsp;Manager books</a></li>
+              </ul>
+            </li>
+          % }
+          % if (uc($config->{bookkeeping_env}) ne 'PRODUZIONE') {
+            <li class="navbar-text"><%= $config->{bookkeeping_env} %></li>
+          % }
+          <span class="navbar-text"><i id="loading" class="fa fa-spinner fa-inverse"></i></span>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          % if (defined $self->session->{email} and $self->session->{email} ne '') {
+            <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" href='<%= url_for "auth_delete" %>'><i class="fa fa-sign-out"></i>&nbsp;Logout <%= $self->session->{email} %></a></li>
+          % }
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+<%# ################################################### %>
+<%# Main content %>
+<%# ################################################### %>
+  <div id="container-fluid" class="container-fluid">
+    <%== content %>
+  </div>
+
+<%# ################################################### %>
+<%# Footer navbar %>
+<%# ################################################### %>
+  <div id="bottom-navbar" class="navbar navbar-inverse navbar-fixed-bottom pull-right" role="navigation">
+    <div class="container">
+      <div class="navbar-footer">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li id="nav4" data-step="4"><a href="/feedback"><i class="fa fa-comment-o"></i>&nbsp;Contact us!</a></li>
+          <li id="nav5"><a href="/credits"><i class="fa fa-users"></i>&nbsp;Info</a></li>
+          <li><a onclick="javascript:startIntro();" href="javascript:void(0);"><i class="fa fa-support"></i>&nbsp;Help</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+</body>
+</html>

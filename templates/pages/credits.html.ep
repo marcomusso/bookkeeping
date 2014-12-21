@@ -1,0 +1,49 @@
+% layout 'default';
+% title 'BookKeeping - Credits';
+
+<%# Javascript  %>
+  %= javascript '/js/credits.js'
+
+<div class="row text-center">
+  <img class="logo" src="/images/bookkeeping.png">
+</div>
+
+<div class="row">
+  <div class="col-lg-1 col-md-1"></div>
+  <div class="col-lg-10 col-md-10">
+    <ul id="mytabs" class="nav nav-tabs nav-justified">
+      <li class="active"><a href="#changelog" data-toggle="tab">Change log</a></li>
+      <li><a href="#env" data-toggle="tab">Env</a></li>
+      <li><a href="#team" data-toggle="tab">Team</a></li>
+    </ul>
+    <div id="mytab-content" class="tab-content">
+      <div id="changelog" class="tab-pane fade in active">
+        <div class="row">
+          <div class="col-lg-1 col-md-1"></div>
+          <div class="col-lg-10 col-md-10" style="margin-top:50px;margin-bottom:50px;">
+          </div>
+          <div class="col-lg-1 col-md-1"></div>
+        </div>
+      </div>
+      <div id="env" class="tab-pane fade in">
+        <div class="row">
+        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-10 col-md-10">
+          <h3 style="text-align:center;">env</h3>
+          </div>
+          <div class="col-lg-1 col-md-1"></div>
+        </div>
+      </div>
+      <div id="team" class="tab-pane fade in">
+        <div class="row">
+          <div class="col-lg-1 col-md-1"></div>
+          <div class="col-lg-10 col-md-10">
+            <h5 style="text-align:center;">alphabetic order</h5>
+          </div>
+          <div class="col-lg-1 col-md-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-1 col-md-1"></div>
+</div>

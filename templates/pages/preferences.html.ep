@@ -1,0 +1,116 @@
+% layout 'default';
+% title 'BookKeeping - Preferences';
+
+<%# Javascript  %>
+  %= javascript '/js/preferences.js'
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Preferences</a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-1 col-lg-1"></div>
+          <div class="col-md-10 col-lg-10 well">
+            <div class="row text-center">
+              <div class="col-md-12 col-lg-12">
+                <p>I seguenti parametri sono comuni a tutte le pagine.</p>
+              </div>
+            </div>
+            <div class="row" id="settings_container">
+              <div class="col-md-4 col-lg-4">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;Periodo di analisi&nbsp;dal:</span>
+                  <input id="startdate" type="text" class="form-control" name="start" />
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-4">
+                <div class="input-group">
+                  <span class="input-group-addon">&nbsp;al:&nbsp;</span>
+                  <input id="enddate" type="text" class="form-control" name="end" />
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-4">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-arrows-h"></i>&nbsp;Intervallo</span>
+                  <select class="form-control selectpicker" name="periodo" id="periodo">
+                    <option value="0">personalizzato</option>
+                    <option selected value="1">ultime 24h (default)</option>
+                    <option value="7">ultima settimana</option>
+                    <option value="31">ultimo mese</option>
+                    <option value="182">ultimi sei mesi</option>
+                    <option value="365">ultimo anno</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row text-center">
+              <div class="col-md-4 col-lg-4"></div>
+              <div class="col-md-4 col-lg-4">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-desktop"></i>&nbsp;Tema</span>
+                  <select class="form-control selectpicker" name="tema" id="tema">
+                    <option value="default">default</option>
+                    <option value="cosmo">cosmo</option>
+                    <option value="flatly">flatly</option>
+                    <option value="slate">slate</option>
+                    <option value="spacelab">spacelab</option>
+                    <option value="yeti">yeti</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-4"></div>
+            </div>
+          </div>
+          <div class="col-md-1 col-lg-1"></div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  function startIntro(){
+    var intro = introJs();
+    intro.setOptions({
+          steps: [
+            {
+              intro: "Pagina delle impostazioni"
+            },
+            {
+              element: '#startdate',
+              intro: "TBD",
+            },
+            {
+              element: '#enddate',
+              intro: "TBD",
+              position: 'bottom'
+            },
+            {
+              element: '#periodo',
+              intro: "TBD",
+              position: 'left'
+            },
+            {
+              element: '#unita',
+              intro: "TBD",
+              position: 'top'
+            },
+            {
+              element: '#ambiente',
+              intro: "TBD",
+              position: 'top'
+            },
+            {
+              element: '#tema',
+              intro: "TBD",
+              position: 'top'
+            }
+          ]
+    });
+    intro.start();
+  }
+</script>

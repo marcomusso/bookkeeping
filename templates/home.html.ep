@@ -1,0 +1,74 @@
+% layout 'default';
+
+%= javascript '/js/home.js'
+
+<div id="home">
+
+  % if ($self->session('email')) {
+
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Riepilogo</h3>
+          </div>
+          <div class="panel-body">
+            Dati societa'
+          </div>
+        </div>
+      </div>
+    </div>
+
+  % } else {
+
+    <div class="row text-center">
+      <div class="col-md-12 col-lg-12">
+        <form class="form-signin" style="width:50%;margin-left:auto;margin-right:auto;" role="form" method='POST' action='<%= url_for "auths_create" %>'>
+          <h2 class="form-signin-heading">Login</h2>
+          <input type="text" class="form-control" placeholder="email" required="" autofocus="" name='email' value="" >
+          <input type="password" class="form-control" placeholder="password" required="" name="password">
+          %= csrf_field
+          <%= include 'msg' %>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" value='Login'>Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-12 col-lg-12">
+        <span class='red_msg' >
+            <%= flash 'error' %>
+        </span>
+        <span class='green_msg' >
+            <%= flash 'notice'%>
+        </span>
+      </div>
+    </div>
+
+  % }
+
+</div>
+
+%# ################################################### %>
+<%# help using intro.js %>
+<%# ################################################### %>
+  <script>
+    function startIntro(){
+      var intro = introJs();
+      intro.setOptions({
+            steps: [
+              {
+                intro: "Start help"
+              },
+              {
+                element: '#0',
+                intro: "TBD",
+              },
+              {
+                element: '#1',
+                intro: "TBD",
+              }
+            ]
+      });
+      intro.start();
+    }
+  </script>

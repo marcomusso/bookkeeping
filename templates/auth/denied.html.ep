@@ -1,0 +1,23 @@
+% title 'Access denied';
+% layout 'default';
+
+<div class="row text-center">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="alert alert-danger" style="margin-top:40%;">Access denied</div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="alert alert-info">
+    Chi siete?<br>
+    Da dove venite?<br>
+    Cosa portate?<br>
+    Dove andate?<br>
+    Sì, ma quanti siete?<br>
+    Un fiorino...<br>
+    <hr>
+    <p>...forse volete tornare al <a href="/login">login</a> ?</p>
+    </div>
+  </div>
+</div>
