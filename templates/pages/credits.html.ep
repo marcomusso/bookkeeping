@@ -5,7 +5,7 @@
   %= javascript '/js/credits.js'
 
 <div class="row text-center">
-  <img class="logo" src="/images/bookkeeping.png">
+  %= tag h1 => 'BookKeeping'
 </div>
 
 <div class="row">
@@ -21,25 +21,30 @@
         <div class="row">
           <div class="col-lg-1 col-md-1"></div>
           <div class="col-lg-10 col-md-10" style="margin-top:50px;margin-bottom:50px;">
+          <ul>
+            <li>v0.1</li>
+          </ul>
           </div>
           <div class="col-lg-1 col-md-1"></div>
         </div>
       </div>
       <div id="env" class="tab-pane fade in">
         <div class="row">
-        <div class="col-lg-1 col-md-1"></div>
-        <div class="col-lg-10 col-md-10">
-          <h3 style="text-align:center;">env</h3>
-          </div>
+          <div class="col-lg-1 col-md-1"></div>
+            <div class="col-lg-10 col-md-10">
+              TBD
+            </div>
           <div class="col-lg-1 col-md-1"></div>
         </div>
       </div>
       <div id="team" class="tab-pane fade in">
         <div class="row">
           <div class="col-lg-1 col-md-1"></div>
-          <div class="col-lg-10 col-md-10">
-            <h5 style="text-align:center;">alphabetic order</h5>
-          </div>
+            <div class="col-lg-10 col-md-10">
+              <ul>
+                <li>Marco Musso: concept, implemetation and bugs</li>
+              </ul>
+            </div>
           <div class="col-lg-1 col-md-1"></div>
         </div>
       </div>

@@ -99,12 +99,12 @@
                 <li class="dropdown-submenu">
                   <a tabindex="-1" href="#">Invoices</a>
                   <ul class="dropdown-menu">
-                    <li><a href="/invoices/receivable"><i class="fa fa-check text-success"></i>&nbsp;Receivable</a></li>
-                    <li><a href="/invoices/payable"><i class="fa fa-check text-success"></i>&nbsp;Payable</a></li>
+                    <li><a href="/invoices/receivable">Receivable</a></li>
+                    <li><a href="/invoices/payable">Payable</a></li>
                   </ul>
                 </li>
                 <li class="divider"></li>
-                <li><a href="/preferences"><i class="fa fa-check text-success"></i>&nbsp;Preferences</a></li>
+                <li><a href="/preferences">Preferences</a></li>
               </ul>
             </li>
           % }
@@ -113,8 +113,8 @@
             <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Backoffice&nbsp;<b class="caret"></b></a>
               <ul class="dropdown-menu multi-level">
-                <li><a href="/config"><i class="fa fa-times text-danger"></i>&nbsp;Configuration</a></li>
-                <li><a href="/books"><i class="fa fa-check text-success"></i>&nbsp;Manage books</a></li>
+                <li><a href="/config">Configuration</a></li>
+                <li><a href="/books">Manage books</a></li>
               </ul>
             </li>
           % }
