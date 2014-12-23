@@ -5,7 +5,7 @@
   %= javascript '/js/preferences.js'
 
 <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
+  <div class="panel panel-primary">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Preferences</a>
@@ -14,36 +14,33 @@
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-1 col-lg-1"></div>
-          <div class="col-md-10 col-lg-10 well">
+          <div class="col-md-12 col-lg-12 well">
             <div class="row text-center">
               <div class="col-md-12 col-lg-12">
-                <p>I seguenti parametri sono comuni a tutte le pagine.</p>
+                <p>These settings are common to all pages.</p>
               </div>
             </div>
             <div class="row" id="settings_container">
               <div class="col-md-4 col-lg-4">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;Periodo di analisi&nbsp;dal:</span>
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;Time range&nbsp;from:</span>
                   <input id="startdate" type="text" class="form-control" name="start" />
                 </div>
               </div>
               <div class="col-md-4 col-lg-4">
                 <div class="input-group">
-                  <span class="input-group-addon">&nbsp;al:&nbsp;</span>
+                  <span class="input-group-addon">&nbsp;to:&nbsp;</span>
                   <input id="enddate" type="text" class="form-control" name="end" />
                 </div>
               </div>
               <div class="col-md-4 col-lg-4">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-arrows-h"></i>&nbsp;Intervallo</span>
+                  <span class="input-group-addon"><i class="fa fa-arrows-h"></i>&nbsp;Presets</span>
                   <select class="form-control selectpicker" name="periodo" id="periodo">
-                    <option value="0">personalizzato</option>
-                    <option selected value="1">ultime 24h (default)</option>
-                    <option value="7">ultima settimana</option>
-                    <option value="31">ultimo mese</option>
-                    <option value="182">ultimi sei mesi</option>
-                    <option value="365">ultimo anno</option>
+                    <option value="0">custom</option>
+                    <option value="31">last 31 days</option>
+                    <option value="182">last six months</option>
+                    <option value="365">last year</option>
                   </select>
                 </div>
               </div>
@@ -52,8 +49,8 @@
               <div class="col-md-4 col-lg-4"></div>
               <div class="col-md-4 col-lg-4">
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-desktop"></i>&nbsp;Tema</span>
-                  <select class="form-control selectpicker" name="tema" id="tema">
+                  <span class="input-group-addon"><i class="fa fa-desktop"></i>&nbsp;Theme</span>
+                  <select class="form-control selectpicker" name="theme" id="theme">
                     <option value="default">default</option>
                     <option value="cosmo">cosmo</option>
                     <option value="flatly">flatly</option>
@@ -66,7 +63,6 @@
               <div class="col-md-4 col-lg-4"></div>
             </div>
           </div>
-          <div class="col-md-1 col-lg-1"></div>
         </div>
       </div>
   </div>

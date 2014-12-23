@@ -23,7 +23,7 @@
 
     <div class="row text-center">
       <div class="col-md-12 col-lg-12">
-        <form class="form-signin" style="width:50%;margin-left:auto;margin-right:auto;" role="form" method='POST' action='<%= url_for "auths_create" %>'>
+        <form class="form-signin" style="width:50%;margin-left:auto;margin-right:auto;" role="form" method='POST' action='<%= url_for "auth_login" %>'>
           <h2 class="form-signin-heading">Login</h2>
           <input type="text" class="form-control" placeholder="email" required="" autofocus="" name='email' value="" >
           <input type="password" class="form-control" placeholder="password" required="" name="password">

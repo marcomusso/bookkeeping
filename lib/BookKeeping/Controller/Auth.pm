@@ -10,49 +10,55 @@ use Mojo::Log;
 my $log = Mojo::Log->new(path => 'log/auth.log', level => 'debug');
 my $debug=1; # livello del log
 
-sub create {
-    my $self     = shift;
-    my $db       = $self->db;
-    my $email    = $self->param('email');
-    my $password = $self->param('password');
+sub login {
+  my $self     = shift;
+  my $db       = $self->db;
+  my $email    = $self->param('email');
+  my $password = $self->param('password');
 
-    # my $mysql_sql="SELECT * from users WHERE email=\"$email\" AND password=\"".crypt($password,$password)."\"";
-    # my $mysql_sth=$mysql_dbh->prepare($mysql_sql);
-    # $mysql_sth->execute or $log->debug("#email SQL Error: $DBI::errstr\n");
-    # my $user = $mysql_sth->fetchall_arrayref({});
-    # $mysql_sth->finish();
+  if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login"); }
 
-    if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::create"); }
+  my $users=$self->db->get_collection('users');
+  my $user=$users->find({"email" => "$email", "password" => crypt($password,$password)});
+  # let's retrieve all users that match the previous find (should be one of course)
+  my @logged_user=$user->all;
 
-    if ( $email  && $user->[0]->{id} ) {
-        if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::create email ok for $user->[0]->{email}"); }
-        $self->session(
-            user_id    => $user->[0]->{id},
-            email      => $user->[0]->{email},
-        )->redirect_to('/');
-    } else {
-        if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::create email failed for $email"); }
-        $self->flash( error => 'Unknown email or wrong password' )->redirect_to('auths_create_form');
-    }
+  if ( @logged_user and (0+@logged_user)==1) {
+      if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login Auth ok for $email"); }
+      $self->session(
+          email      => $email,
+          role       => $logged_user[0]->{'role'},
+          firstname  => $logged_user[0]->{'firstname'},
+          lastname   => $logged_user[0]->{'lastname'}
+      )->redirect_to('/');
+  } else {
+      if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login Auth failed for $email"); }
+      $self->flash( error => 'Unknown email or wrong password' )->redirect_to('/');
+  }
 }
 
-sub delete {
-    my $self     = shift;
+sub logout {
+  my $self     = shift;
 
-    if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::delete logout for ".$self->session('email')); }
+  if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::delete logout for ".$self->session('email')); }
 
-    $self->session( user_id => '', email => '' )->redirect_to('auths_create_form');
+  # clear session
+  $self->session( email => '',
+                  role => '',
+                  firstname => '',
+                  lastname => ''
+                  )->redirect_to('/');
 }
 
 sub check {
-    my $self = shift;
+  my $self = shift;
 
-    if ($self->session('email')) {
-        return 1;
-    } else {
-        $self->render(template => 'auth/denied');
-        return 0;
-    }
+  if ($self->session('email')) {
+      return 1;
+  } else {
+      $self->render(template => 'auth/denied');
+      return 0;
+  }
 }
 
 "The gate will open if...";

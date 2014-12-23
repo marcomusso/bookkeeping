@@ -70,12 +70,11 @@ sub getSession {
 
   my %defaults=('theme'       => 'default',
                 'email'       => '',
-                'startepoch'  => time-60*60*24*31, # adesso - 1mese
-                'endepoch'    => time,          # adesso
+                'startepoch'  => time-60*60*24*365, # now - 1year
+                'endepoch'    => time,             # now
                 'timerange'   => 2,
                 'startlocale' => $startlocale,
                 'endlocale'   => $endlocale,
-                'news_date'   => 0
                );
 
   my $rua=$self->req->headers->user_agent;
