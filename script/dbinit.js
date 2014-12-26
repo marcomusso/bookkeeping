@@ -4,9 +4,11 @@ db = new Mongo().getDB("bookkeeping");
 admin = { email: "admin", password: "adpexzg3FUZAk", last_login: new Date(), role: "admin", firstname: "", lastname: "" };
 // create default admin user (password admin)
 db.users.insert(admin);
-// Other collections  with one sample obj
+///////////////////////////////////////////////
+// Other collections with one sample obj each
+///////////////////////////////////////////////
 // invoice_receivable: money that you expect
-invoice_receivable = {
+sample_invoice_receivable = {
   "invoice_date": "28/11/2014",
   "invoice_id": "0012-14",
   "workorder": "SAMPLE workorder (you can delete this entire obj)",
@@ -21,7 +23,7 @@ invoice_receivable = {
   "paid_date": ""
 };
 // invoice_payable: money that you own to others
-invoice_payable = {
+sample_invoice_payable = {
   "invoice_date": "28/11/2014",
   "invoice_id": "347A382",
   "supplier": "SAMPLE payable supplier",
@@ -31,5 +33,15 @@ invoice_payable = {
   "paid_date": ""
 };
 // let's insert those sample records and create the collections!
-db.invoice_receivable.insert(invoice_receivable);
-db.invoice_payable.insert(invoice_payable);
+db.invoice_receivable.insert(sample_invoice_receivable);
+db.invoice_payable.insert(sample_invoice_payable);
+// customers
+sample_customer = {
+  // #@TODO add sample customer
+};
+db.customers.insert(sample_customer);
+// workorders
+sample_workorder = {
+  // #@TODO add sample workorder
+};
+db.workorders.insert(sample_workorder);
