@@ -8,7 +8,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Preferences</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapsableSettings">Preferences</a><i id="saved" class="fa fa-check-square pull-right green"></i>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
@@ -36,11 +36,10 @@
               <div class="col-md-4 col-lg-4">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrows-h"></i>&nbsp;Presets</span>
-                  <select class="form-control selectpicker" name="periodo" id="periodo">
+                  <select class="form-control selectpicker" name="timerange" id="timerange">
                     <option value="0">custom</option>
-                    <option value="31">last 31 days</option>
-                    <option value="182">last six months</option>
-                    <option value="365">last year</option>
+                    <option value="-2">previous year</option>
+                    <option value="-1">current year</option>
                   </select>
                 </div>
               </div>

@@ -115,15 +115,15 @@ function uniqueArray(a) {
 
 $("document").ready(function() {
   spinThatWheel(false);
+  $("#saved").fadeOut();
   // settings: load session and start page-related housekeeping via initPage()
     $.getJSON("/api/getSession.json", function( data ) {
       $.each( data, function( key, val ) {
-        mySessionData[key]=val; // metto i valori di sessione in un obj
+        mySessionData[key]=val;
         // console.log("getSessionData: "+key+' = '+val);
         for (key in mySessionData) {
-          // per ogni valore di key se esiste il val settare l'apposito oggetto
+          // update DOM id for every session key (if needed)
           switch(key) {
-            // nel case c'e' la chiave (indice dei parametri), da mappare sugli oggetti del DOM (a destra)
             case 'theme': if ($('#tema').length) { $("#tema").val(mySessionData[key]); }
                          break;
             default: break;
@@ -135,53 +135,53 @@ $("document").ready(function() {
     }).fail(function() {
       alertThis('Impossibile recuperare le informazioni di sessione.','danger');
     });
-  // IMPOSTAZIONI: gestione parametri, cambio valori di sessione, salvataggio (setSession) e richiamo refreshPage()
+  // user changes preferences: save session and call refreshPage()
     $( "#settings_container .form-control" ).change(function() {
       var tmpEpoch;
       var dateParts;
       console.log("form changed: "+$(this).attr('id')+" = "+ $(this).val());
       switch($(this).attr('id')) {
-        // nel case c'e' l'id dell'oggetto DOM
+        // case on DOM obj id
         case 'startdate': dateParts = $(this).val().match(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})/);
                           tmpEpoch=Date.UTC(+dateParts[3], dateParts[2]-1, +dateParts[1], +dateParts[4], +dateParts[5])/1000.0;
                           mySessionData['startepoch']=tmpEpoch;
                           mySessionData['startlocale']=$(this).val();
-                          // il periodo diventa personalizzato
-                          $("#periodo").val(0); mySessionData['timerange']=0;
-                          // TODO: settare la startDate di enddate
+                          $("#timerange").val(0); mySessionData['timerange']=0;
+                          // TODO: connstrain startDate of enddate
                           break;
         case 'enddate': dateParts = $(this).val().match(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})/);
                         tmpEpoch=Date.UTC(+dateParts[3], dateParts[2]-1, +dateParts[1], +dateParts[4], +dateParts[5])/1000.0;
                         mySessionData['endepoch']=tmpEpoch;
                         mySessionData['endlocale']=$(this).val();
-                        // il periodo diventa personalizzato
-                        $("#periodo").val(0); mySessionData['timerange']=0;
-                        // TODO: settare la endDate di startdate
+                        $("#timerange").val(0); mySessionData['timerange']=0;
+                        // #@TODO: constrain endDate of startdate
                         break;
-        case 'unita': mySessionData['units']=$(this).val();
-                      break;
-        case 'tema': mySessionData['theme']=$(this).val();
+        case 'theme': mySessionData['theme']=$(this).val();
                      break;
-        case 'ambiente': mySessionData['env_code']=$(this).val();
-                         mySessionData['env_display']=myEnvLookup[$(this).val()]['visualizzazione'];
-                         break;
-        case 'periodo': if ($(this).val() !== 0) { // intervallo personalizzato
-                          mySessionData['timerange']=$(this).val();
-                          var d=new Date();
-                          var today_epoch=Math.floor(d.getTime()/1000);
-                          var yesterday_epoch=today_epoch-24*60*60;
-                          mySessionData['startepoch']=today_epoch-(60*60*$(this).val()); // $(this).val() e' in ore
-                          mySessionData['endepoch']=today_epoch;
-                          // settare i widget di start/end al valore corretto rispetto a today_epoch
-                          var tmpDate=new Date(mySessionData['startepoch']*1000);
-                          $('#startdate').datetimepicker('update', tmpDate);
-                          tmpDate=new Date(mySessionData['endepoch']*1000);
-                          $('#enddate').datetimepicker('update', tmpDate);
-                        }
+        case 'timerange': if ($(this).val() !== 0) { // custom range
+                            mySessionData['timerange']=$(this).val();
+                            // let's handle various presets
+                            switch ($(this).val()) {
+                              case "-1": console.log('current year');
+                                         // #@TODO get current year and set startepoch / endepoch
+                                         break;
+                              case "-2": console.log('previous year');
+                                         // #@TODO get previous year and set startepoch / endepoch
+                                         break;
+                              default: break;
+                            }
+                            mySessionData['startepoch']=startepoch;
+                            mySessionData['endepoch']=endepoch;
+                            // set date widgets to the correct values
+                            var tmpDate=new Date(mySessionData['startepoch']*1000);
+                            $('#startdate').datetimepicker('update', tmpDate);
+                            tmpDate=new Date(mySessionData['endepoch']*1000);
+                            $('#enddate').datetimepicker('update', tmpDate);
+                          }
                         break;
         default: break;
       }
-      // IMPOSTAZIONI: notifica salvataggio
+      // a quick notification to the user: preferences were saved!
         $("#saved").fadeIn(750);
         $("#saved").fadeOut(1750);
       setSession();

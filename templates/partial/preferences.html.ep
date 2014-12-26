@@ -1,0 +1,69 @@
+<%# ################################################################# %>
+<%# partial preferences to add to every page (where needed of course) %>
+<%# ################################################################# %>
+  <div class="row">
+    <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapsableSettings">Preferences</a><i id="saved" class="fa fa-check-square pull-right green"></i>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12 col-lg-12 well">
+                  <div class="row text-center">
+                    <div class="col-md-12 col-lg-12">
+                      <p>These settings are common to all pages.</p>
+                    </div>
+                  </div>
+                  <div class="row" id="settings_container">
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i>&nbsp;Time range&nbsp;from:</span>
+                        <input id="startdate" type="text" class="form-control" name="start" />
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon">&nbsp;to:&nbsp;</span>
+                        <input id="enddate" type="text" class="form-control" name="end" />
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-arrows-h"></i>&nbsp;Presets</span>
+                        <select class="form-control selectpicker" name="timerange" id="timerange">
+                          <option value="0">custom</option>
+                          <option value="-2">previous year</option>
+                          <option value="-1">current year</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row text-center">
+                    <div class="col-md-4 col-lg-4"></div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-desktop"></i>&nbsp;Theme</span>
+                        <select class="form-control selectpicker" name="theme" id="theme">
+                          <option value="default">default</option>
+                          <option value="cosmo">cosmo</option>
+                          <option value="flatly">flatly</option>
+                          <option value="slate">slate</option>
+                          <option value="spacelab">spacelab</option>
+                          <option value="yeti">yeti</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
