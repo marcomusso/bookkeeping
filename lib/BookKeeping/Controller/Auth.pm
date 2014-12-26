@@ -5,6 +5,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Mojo::Log;
+use DateTime;
 
 # Customize log file location and minimum log level
 my $log = Mojo::Log->new(path => 'log/auth.log', level => 'debug');
@@ -25,6 +26,9 @@ sub login {
 
   if ( @logged_user and (0+@logged_user)==1) {
       if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login Auth ok for $email"); }
+      # set last login time
+      $users->update({"_id" => $logged_user[0]->{'_id'}}, {'$set' => {'last_login' => DateTime->now}});
+      # save info in session
       $self->session(
           email      => $email,
           role       => $logged_user[0]->{'role'},
