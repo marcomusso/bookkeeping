@@ -921,16 +921,34 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     border-radius: 0 0 6px 6px;
   }
 
+/* START D3 graphs */
+
 .bar {
   fill: purple;
   shape-rendering: crispEdges;
 }
 
 .bar-label {
-  fill: white;
-  text-anchor: end;
+  fill: black;
+  text-anchor: middle;
   font-size: 12px;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.gridline path,
+.gridline line {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+
+/* END D3 graphs */
 
 /*Per submenu*/
   .dropdown-submenu {
