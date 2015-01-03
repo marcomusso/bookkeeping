@@ -21,19 +21,6 @@ body {
   font-weight: 300;
 }
 
-.dati_non_aggiornati {
-/*  text-transform:uppercase;
-  margin-left: 390px;
-  margin-top:-70px;
-  float:left;
-  top: 10px;
-  left: 10px;*/
-  border: 3px solid darkred;
-  border-radius: 6px;
-  border-color: darkred;
-  box-shadow: 0 0 10px darkred;
-}
-
 .btn-mini {
   padding: 1px 1px;
   font-size: @baseFontSize - 2px;
@@ -41,11 +28,10 @@ body {
 }
 
 .centered_login_form {
-  width:400px;
-  margin-right:auto;
-  margin-left:auto;
-  border:1px solid gray;
-  margin-top:50%;
+  /*width:400px;*/
+  /*margin-right:auto;*/
+  /*margin-left:auto;*/
+  margin-top:200px;
 }
 
 /* Open dropdown-menu on hover */
@@ -935,66 +921,16 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     border-radius: 0 0 6px 6px;
   }
 
-/* evidenziatore per tipologia servizio */
-  .altro
-   {
-    display: inline-table;
-    background-color: GRAY;
-    color:  BLACK;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-   }
-  .oracle
-   {
-    display: inline-table;
-    background-color: RED;
-    color:  WHITE;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-   }
-  .wl
-   {
-    display: inline-table;
-    background-color: BLUE;
-    color:  WHITE;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-   }
-  .batch
-   {
-    display: inline-table;
-    background-color: BLACK;
-    color:  WHITE;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-   }
-  .jboss
-   {
-    display: inline-table;
-    background-color: GREEN;
-    color:  WHITE;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-   }
-  .apache {
-    display: inline-table;
-    background-color: Orange;
-    color:  Black;
-    text-decoration:none;
-    border-width: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-  }
+.bar {
+  fill: purple;
+  shape-rendering: crispEdges;
+}
+
+.bar-label {
+  fill: white;
+  text-anchor: end;
+  font-size: 12px;
+}
 
 /*Per submenu*/
   .dropdown-submenu {

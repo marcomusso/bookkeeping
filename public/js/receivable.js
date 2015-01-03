@@ -1,10 +1,10 @@
 function initPage() {
   console.log( "initPage called" );
   $.getJSON('/api/getreceivableinvoices.json', function(data){
-    console.log(data);
+    // console.log(data);
     $('#invoices_receivable > tbody').empty();
-    for (var id in data) {
-      $('#invoices_receivable tbody').append('<tr><td>'+id+'</td><td>'+data[id].invoice_date+'</td><td>'+data[id].workorder+'</td><td>'+data[id].total+'</td><td>'+data[id].due_date+'</td><td>'+data[id].paid_date+'</td>');
+    for (var i = 0; i < data.length; i++) {
+      $('#invoices_receivable tbody').append('<tr><td>'+data[i].invoice_id+'</td><td>'+data[i].invoice_date+'</td><td>'+data[i].workorder+'</td><td>'+data[i].total+'</td><td>'+data[i].due_date+'</td><td>'+data[i].paid_date+'</td>');
     }
   });
 
