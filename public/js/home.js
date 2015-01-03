@@ -17,9 +17,11 @@ function doGraph(element) {
              .domain([0, d3.max(InvoicesData, function(d) { return d.total; })])
              .range([0, width]);
 
-  var yScale = d3.scale.linear()
-             .domain([0, InvoicesData.length])
-             .range([0, height]);
+  var yScale = d3.scale.ordinal()
+             .domain(InvoicesData.map(function(entry){
+                return entry.invoice_id;
+             }))
+             .rangeBands([0, height]);
 
   var svg = d3.select(element)
       .append("svg")
@@ -37,13 +39,13 @@ function doGraph(element) {
     .classed("bar", true)
     .attr("x", 0)
     .attr("y", function(d,i){
-      return yScale(i);
+      return yScale(d.invoice_id);
     })
     .attr("width", function(d,i){
       return xScale(d.total);
     })
     .attr("height", function(d,i){
-      return yScale(1)-1;
+      return yScale.rangeBand()-1;
     });
   chart.selectAll(".bar-label")
     .data(InvoicesData)
@@ -55,10 +57,10 @@ function doGraph(element) {
     })
     .attr("dx", -4)
     .attr("y", function(d,i){
-      return yScale(i);
+      return yScale(d.invoice_id);
     })
     .attr("dy", function(d,i){
-      return yScale(1)/2+3;
+      return yScale.rangeBand()/2+3;
     })
     .text(function(d,i){
        return d.total;
