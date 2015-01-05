@@ -29,7 +29,13 @@ sub startup {
   ##########################################
   # Plugins
     my $config = $self->plugin('Config');
-    $self->plugin('TagHelpers');
+    # many languages! (debug: MOJO_I18N_DEBUG=1 perl script.pl)
+    # $self->plugin(charset => {charset => 'utf8'});
+    # $self->plugin(
+    #   I18N => {namespace => 'BookKeeping::I18N'},
+    #   support_url_langs => [qw(it en)],
+    #   default => 'en'
+    # );
   ##########################################
 
   #################################################################################
@@ -76,7 +82,10 @@ sub startup {
 
   ###################################################################################################
   # Public API
-    $r->route('/api/getreceivableinvoices', format => [qw(csv json)]) ->to('API#getReceivableInvoices');
+    $r->route('/api/getreceivableinvoices', format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
+    $r->route('/api/invoice',               format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
+    # TODO: get single invoice by id
+    # $r->route('/api/invoice/:invoice_id', invoice_id => qr/(\d+)-(\d+)/, format => [qw(json)]) ->via('get')   ->to('API#getReceivableInvoice');
   ###################################################################################################
 
   ###################################################################################################
