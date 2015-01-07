@@ -28,10 +28,15 @@ body {
 }
 
 .centered_login_form {
-  /*width:400px;*/
-  /*margin-right:auto;*/
-  /*margin-left:auto;*/
-  margin-top:200px;
+  width:400px;
+  margin-right:auto;
+  margin-left:auto;
+  border:1px solid gray;
+  margin-top:50%;
+}
+
+.red_msg {
+  color: #c62f29;
 }
 
 /* Open dropdown-menu on hover */

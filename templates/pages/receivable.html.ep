@@ -8,12 +8,12 @@
     <table id="invoices_receivable" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Invoice ID</th>
-          <th>Invoice date</th>
-          <th>Workorder</th>
-          <th>Total (ex. VAT)</th>
-          <th>Due date</th>
-          <th>Paid date</th>
+          <th><%=l 'Invoice ID'%></th>
+          <th><%=l 'Invoice date'%></th>
+          <th><%=l 'Workorder'%></th>
+          <th><%=l 'Total (ex. VAT)'%></th>
+          <th><%=l 'Due date'%></th>
+          <th><%=l 'Paid date'%></th>
         </tr>
       </thead>
       <tbody>

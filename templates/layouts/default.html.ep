@@ -94,17 +94,17 @@
           <li id="nav0" data-step="2"><a href="/"><i class="fa fa-home"></i></a></li>
           % if ($self->session->{email}) {
             <li id="nav1" class="dropdown" data-step="1">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Main<b class="caret"></b></a>
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%=l 'Main'%><b class="caret"></b></a>
               <ul class="dropdown-menu multi-level">
                 <li class="dropdown-submenu">
-                  <a tabindex="-1" href="#">Invoices</a>
+                  <a tabindex="-1" href="#"><%=l 'Invoices'%></a>
                   <ul class="dropdown-menu">
-                    <li><a href="/invoices/receivable">Receivable</a></li>
-                    <li><a href="/invoices/payable">Payable</a></li>
+                    <li><a href="/invoices/receivable"><%=l 'Receivable'%></a></li>
+                    <li><a href="/invoices/payable"><%=l 'Payable'%></a></li>
                   </ul>
                 </li>
                 <li class="divider"></li>
-                <li><a href="/preferences">Preferences</a></li>
+                <li><a href="/preferences"><%=l 'Preferences'%></a></li>
               </ul>
             </li>
           % }
@@ -113,8 +113,8 @@
             <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Backoffice&nbsp;<b class="caret"></b></a>
               <ul class="dropdown-menu multi-level">
-                <li><a href="/config">Configuration</a></li>
-                <li><a href="/books">Manage books</a></li>
+                <li><a href="/config"><%=l 'Configuration'%></a></li>
+                <li><a href="/books"><%=l 'Manage books'%></a></li>
               </ul>
             </li>
           % }
@@ -125,7 +125,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           % if (defined $self->session->{email} and $self->session->{email} ne '') {
-            <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;Logout <%= $self->session->{email} %></a></li>
+            <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%> <%= $self->session->{email} %></a></li>
           % }
         </ul>
       </div><!--/.nav-collapse -->
@@ -155,9 +155,9 @@
       <div class="collapse navbar-collapse">
         % if (defined $self->session->{email} and $self->session->{email} ne '') {
           <ul class="nav navbar-nav">
-            <li id="nav4" data-step="4"><a href="/feedback"><i class="fa fa-comment-o"></i>&nbsp;Contact us!</a></li>
-            <li id="nav5"><a href="/credits"><i class="fa fa-users"></i>&nbsp;Info</a></li>
-            <li><a onclick="javascript:startIntro();" href="javascript:void(0);"><i class="fa fa-support"></i>&nbsp;Help</a></li>
+            <li id="nav4" data-step="4"><a href="/feedback"><i class="fa fa-comment-o"></i>&nbsp;<%=l 'Contact us'%>!</a></li>
+            <li id="nav5"><a href="/credits"><i class="fa fa-users"></i>&nbsp;<%=l 'Info'%></a></li>
+            <li><a onclick="javascript:startIntro();" href="javascript:void(0);"><i class="fa fa-support"></i>&nbsp;<%=l 'Help'%></a></li>
           </ul>
         % }
       </div><!--/.nav-collapse -->

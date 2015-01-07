@@ -30,12 +30,12 @@ sub startup {
   # Plugins
     my $config = $self->plugin('Config');
     # many languages! (debug: MOJO_I18N_DEBUG=1 perl script.pl)
-    # $self->plugin(charset => {charset => 'utf8'});
-    # $self->plugin(
-    #   I18N => {namespace => 'BookKeeping::I18N'},
-    #   support_url_langs => [qw(it en)],
-    #   default => 'en'
-    # );
+    $self->plugin(charset => {charset => 'utf8'});
+    $self->plugin(
+      I18N => {namespace => 'BookKeeping::I18N'},
+      support_url_langs => [qw(it en)],
+      default => 'en'
+    );
   ##########################################
 
   #################################################################################
