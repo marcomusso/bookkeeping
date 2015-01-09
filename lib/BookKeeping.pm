@@ -68,6 +68,13 @@ sub startup {
       $r->route('/login')             ->to('auth#login')          ->name('auth_login');
       $r->route('/logout')            ->to('auth#logout')         ->name('auth_logout');
 
+    # login
+      # $r->route('/login')            ->to('auth#login')       ->name('auth_login');
+      # $r->route('/auth')             ->to('auth#create')      ->name('auth_create');
+      # $r->route('/logout')           ->to('auth#logout')      ->name('auth_logout');
+  ###################################################################################################
+
+
     # admin role
       $r->route('/books')  ->to('pages#books');
       $r->route('/config') ->to('pages#config');

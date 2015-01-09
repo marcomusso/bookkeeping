@@ -9,7 +9,7 @@ db.users.insert(admin);
 ///////////////////////////////////////////////
 // invoice_receivable: money that you expect
 sample_invoice_receivable = {
-  "invoice_date": "28/11/2014",
+  "invoice_date": new Date("2014-11-28T00:00:00+0100"),
   "invoice_id": "0012-14",
   "workorder": "SAMPLE workorder (you can delete this entire obj)",
   "units": 17,
@@ -19,29 +19,36 @@ sample_invoice_receivable = {
   "total": "5100,00",
   "vat": "22,00%",
   "bank_transfer": "5.202,00",
-  "due_date": "31/12/2014",
+  "due_date": new Date("2014-12-31T00:00:00+0100"),
   "paid_date": ""
 };
 // invoice_payable: money that you own to others
 sample_invoice_payable = {
-  "invoice_date": "28/11/2014",
+  "invoice_date": new Date("2014-10-28T00:00:00+0100"),
   "invoice_id": "347A382",
   "supplier": "SAMPLE payable supplier",
   "notes": "Some note on this invoice",
   "total": "5100,00",
-  "due_date": "31/12/2014",
+  "due_date": new Date("2014-12-31T00:00:00+0100"),
   "paid_date": ""
 };
-// let's insert those sample records and create the collections!
-db.invoice_receivable.insert(sample_invoice_receivable);
-db.invoice_payable.insert(sample_invoice_payable);
 // customers
 sample_customer = {
   // #@TODO add sample customer
 };
-db.customers.insert(sample_customer);
 // workorders
 sample_workorder = {
   // #@TODO add sample workorder
 };
+// companies
+sample_company = {
+  "company_name": "Sample company name",
+  "birthdate": new Date("2005-06-05T00:00:00+0100"),
+  "type": "Limited"
+};
+// let's insert those sample records and create the collections!
+db.invoices_receivable.insert(sample_invoice_receivable);
+db.invoices_payable.insert(sample_invoice_payable);
+db.customers.insert(sample_customer);
 db.workorders.insert(sample_workorder);
+db.companies.insert(sample_company);

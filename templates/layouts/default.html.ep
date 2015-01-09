@@ -44,6 +44,7 @@
 
     <%# datetimepicker %>
       %= javascript '/js/bootstrap-datetimepicker.js'
+      <%# TODO: load locale corresponding to user browser settings/I18N %>
       %= javascript '/js/locales/bootstrap-datetimepicker.it.js'
       %= stylesheet '/css/bootstrap-datetimepicker.css'
 
@@ -122,10 +123,11 @@
             <li class="navbar-text"><%= $config->{bookkeeping_env} %></li>
           % }
           <span class="navbar-text"><i id="loading" class="fa fa-spinner fa-inverse"></i></span>
+          <span class="navbar-text"><i id="saved" class="fa fa-check-square green"></i></span>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           % if (defined $self->session->{email} and $self->session->{email} ne '') {
-            <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%> <%= $self->session->{email} %></a></li>
+            <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" data-toggle="tooltip" data-placement="bottom" title="<%= $self->session->{email} %>" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%></a></li>
           % }
         </ul>
       </div><!--/.nav-collapse -->

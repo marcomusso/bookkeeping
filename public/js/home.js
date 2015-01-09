@@ -82,7 +82,7 @@ function doGraph(element) {
       return yScale(d.total);
     })
     .attr("width", function(d,i){
-      return xScale.rangeBand();
+      return xScale.rangeBand()-1;
     })
     .attr("height", function(d,i){
       return height-yScale(d.total);

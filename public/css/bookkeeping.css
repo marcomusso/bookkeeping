@@ -929,7 +929,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 /* START D3 graphs */
 
 .bar {
-  fill: purple;
+  fill: #337ab7;
   shape-rendering: crispEdges;
 }
 

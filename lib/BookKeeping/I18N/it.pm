@@ -36,6 +36,16 @@ our %Lexicon = (
     'Total (ex. VAT)' => 'Totale (IVA escl.)',
     'Due date' => 'Scadenza fattura',
     'Paid date' => 'Data pagamento',
+  # PREFERENCES
+    'These settings are common to all pages' => 'Le impostazioni sono comuni a tutte le pagine',
+    'Presets' => 'Intervallo',
+    'Time range from' => 'Da',
+    'to' => 'a',
+    'Theme' => 'Tema',
+    'default' => 'predefinito',
+    'custom' => 'personalizzato',
+    'previous year' => 'anno precedente',
+    'current year' => 'anno corrente'
 );
 
 "Vai";
