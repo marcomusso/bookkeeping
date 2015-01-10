@@ -51,7 +51,7 @@ sub getSession {
   # ($sec,$min,$hour,$day,$month,$year) = (localtime(time))[0,1,2,3,4,5];
   # my $endlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%2d",$hour).":".sprintf("%2d",$min);
 
-  my %defaults=('theme'       => 'cosmo',
+  my %defaults=('theme'       => 'yeti',
                 'email'       => '',
                 'startepoch'  => time-60*60*24*365, # now - 1year
                 'endepoch'    => time,             # now

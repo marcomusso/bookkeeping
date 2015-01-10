@@ -4,7 +4,7 @@ Current status: work in progress!
 
 A simple Mojolicious application to keep track of your invoices (receivable, payable).
 
-Basically an example app to learn/try some old & new technologies:
+Basically an example app to learn/try/use some old & new technologies:
 
 * Bootstrap
 * MongoDB
@@ -15,6 +15,22 @@ Basically an example app to learn/try some old & new technologies:
 ## Database
 
 See script/dbinit.js for a (very) basic model/collections description.
+
+# How to start
+
+You need a few things:
+
+* a recent Perl installation (let's say >=5.18.4), if you are not an admin on your computer I suggest ``perlbrew`` to create your own Perl (+modules) local installation; in this case you need quite a lot of space in your home dir (let's say a few hundredths MB)
+* then fire up ``cpan`` to install the required modules:
+    cpan Mojolicious Mojolicious::Plugin::I18N MongoDB DateTime
+
+After a while you should have everything to try to start the app... In the cloned directory type:
+    morbo -v script/book_keeping
+
+Which is the development server for a Mojolicious app, it should respond with:
+    Server available at http://127.0.0.1:3000.
+
+Open your browser and... well, you know (probably you'll want to take a look at ``script/dbinit.js`` for the login credentials :).
 
 # TODO
 
@@ -28,9 +44,8 @@ But for sure:
 
   - [jquery (>=2.0.3)](http://jquery.com) (2.1.1)
   - [DataTables.net](http://datatables.net) (1.10.2)
-  - [typeahead.js](https://twitter.github.io/typeahead.js/) (0.10.5)
-  - Date/Time pickers:
-      - [DateTime Picker](http://www.malot.fr/bootstrap-datetimepicker/) (2.3.1)
+  - [typeahead.js](https://twitter.github.io/typeahead.js/) (0.10.5) CURRENTLY NOT USED
+  - [DateTime Picker](http://www.malot.fr/bootstrap-datetimepicker/) (2.3.1)
   - [intro.js](http://usablica.github.io/intro.js/) v0.9.0 for the help text
   - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/) v2.0.1
   - [Animate.css](http://daneden.github.io/animate.css/) (github master @ 11/12/2014, v3.1.0)
