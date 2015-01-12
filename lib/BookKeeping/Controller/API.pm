@@ -145,7 +145,7 @@ sub getReceivableInvoices {
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
   if ($debug>0) {
-    $log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip");
+    $log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip");
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
@@ -155,13 +155,12 @@ sub getReceivableInvoices {
 
   while (my $inv = $all_invoices->next) {
     # JSON array
-      # $invoice{$inv->{'invoice_id'}}{'invoice_id'} = $inv->{'invoice_id'};
-      # $invoice{$inv->{'invoice_id'}}{'workorder'} = $inv->{'workorder'};
-      # $invoice{$inv->{'invoice_id'}}{'invoice_date'} = $inv->{'invoice_date'};
-      # $invoice{$inv->{'invoice_id'}}{'total'} = $inv->{'total'};
-      # $invoice{$inv->{'invoice_id'}}{'due_date'} = $inv->{'due_date'};
-      # $invoice{$inv->{'invoice_id'}}{'paid_date'} = $inv->{'paid_date'};
-      # push @invoicesArray, $invoice{$inv->{'invoice_id'}};
+      my $datestring=$inv->{'invoice_date'}->day.'/'.$inv->{'invoice_date'}->month.'/'.$inv->{'invoice_date'}->year;
+      $inv->{'invoice_date'}=$datestring;
+      $datestring=$inv->{'due_date'}->day.'/'.$inv->{'due_date'}->month.'/'.$inv->{'due_date'}->year;
+      $inv->{'due_date'}=$datestring;
+      $datestring=$inv->{'paid_date'}->day.'/'.$inv->{'paid_date'}->month.'/'.$inv->{'paid_date'}->year;
+      $inv->{'paid_date'}=$datestring;
       push @invoicesArray, $inv;
     # CSV data
       $text_data.=$inv->{'invoice_id'}.$sep.
