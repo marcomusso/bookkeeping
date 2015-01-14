@@ -4,19 +4,21 @@
 %= javascript '/js/receivable.js'
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
+  <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
     <table id="invoices_receivable" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th><%=l 'Invoice ID'%></th>
-          <th><%=l 'Invoice date'%></th>
-          <th><%=l 'Workorder'%></th>
-          <th><%=l 'Total (ex. VAT)'%></th>
-          <th><%=l 'Due date'%></th>
-          <th><%=l 'Paid date'%></th>
+          <th class="text-center"><%=l 'Invoice ID'%></th>
+          <th class="text-center"><%=l 'Invoice date'%></th>
+          <th class="text-center"><%=l 'Workorder'%></th>
+          <th class="text-center" title="<%=l 'Total before VAT and down payment'%>"><%=l 'Total (ex. VAT)'%></th>
+          <th class="text-center"><%=l 'VAT'%></th>
+          <th class="text-center" title="<%=l 'Expected amount'%>"><%=l 'Bank transfer'%></th>
+          <th class="text-center"><%=l 'Due date'%></th>
+          <th class="text-center"><%=l 'Paid date'%></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-center">
       </tbody>
     </table>
   </div>

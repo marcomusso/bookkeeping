@@ -42,6 +42,9 @@
       %= javascript "/bootstrap-3.3.1/js/bootstrap.js"
       %= stylesheet "/bootstrap-3.3.1/css/bootstrap.css"
 
+    <%# i18next %>
+      %= javascript "/i18next-1.7.7/i18next-1.7.7.min.js"
+
     <%# datetimepicker %>
       %= javascript '/js/bootstrap-datetimepicker.js'
       <%# TODO: load locale corresponding to user browser settings/I18N %>
@@ -104,6 +107,7 @@
                     <li><a href="/invoices/payable"><%=l 'Payable'%></a></li>
                   </ul>
                 </li>
+                <li><a href="/customers"><%=l 'Customers'%></a></li>
                 <li class="divider"></li>
                 <li><a href="/preferences"><%=l 'Preferences'%></a></li>
               </ul>
