@@ -2,18 +2,9 @@ package BookKeeping;
 
 use Mojo::Base 'Mojolicious';
 use Mojo::Log;
-use POSIX qw(strftime);
 use MongoDB;
 use MongoDB::OID;
 use BookKeeping::Model;
-
-# Customize log file location and minimum log level
-my $log = Mojo::Log->new(path => 'log/bookkeeping.log', level => 'debug');
-
-# simple DEBUG levels:
-# 1: occasional output in actions
-# 2: 1+data dump
-my $debug=2;
 
 # This method will run once at server start
 sub startup {
@@ -21,7 +12,6 @@ sub startup {
   my $version;
 
   $self->moniker('bookkeeping');
-  $log->debug('BookKeeping startup') if $debug>0;
   $self->secrets(['efff74625f7sdrfh3wt95gh45g'],['This secret is used _only_ for validation']);
   $self->sessions->default_expiration(3600*6); # 6 ore
   $version = $self->defaults({version => '0.1&alpha;'});
@@ -45,6 +35,14 @@ sub startup {
             # Init Model
             BookKeeping::Model->init( $config->{db} );
           }
+    );
+    # Log handling
+    my $api_log = Mojo::Log->new(path => 'log/api.log', level => 'debug');
+    $self->helper(
+      api_log => sub { return $api_log }
+    );
+    $self->helper(
+      log_level  => sub { return 2 }
     );
   #################################################################################
 
@@ -82,6 +80,7 @@ sub startup {
     # user role
       $r->route('/invoices/receivable') ->to('pages#receivable');
       $r->route('/invoices/payable')    ->to('pages#payable');
+      $r->route('/customers')           ->to('pages#customers');
       $r->route('/feedback')            ->to('pages#feedback');
       $r->route('/credits')             ->to('pages#credits');
       $r->route('/preferences')         ->to('pages#preferences');
@@ -89,8 +88,6 @@ sub startup {
 
   ###################################################################################################
   # Public API
-    $r->route('/api/getreceivableinvoices', format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
-    $r->route('/api/invoice',               format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
     # TODO: get single invoice by id
     # $r->route('/api/invoice/:invoice_id', invoice_id => qr/(\d+)-(\d+)/, format => [qw(json)]) ->via('get')   ->to('API#getReceivableInvoice');
   ###################################################################################################
@@ -107,6 +104,9 @@ sub startup {
     my $auth = $r->under->to('auth#check');
     $auth->route('/configuration')        ->to('pages#configuration');
     $auth->route('/books')                ->to('pages#dashboard');
+    $auth->route('/api/receivableinvoices',                   format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
+    $auth->route('/api/receivableinvoice',                    format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
+    $auth->route('/api/getreceivableinvoicepdf/:invoice_id',  format => [qw(txt pdf)])  ->via('get')  ->to('API#getReceivableInvoicePDF');
   ###################################################################################################
 
   ###################################################################################################

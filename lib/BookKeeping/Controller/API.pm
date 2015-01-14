@@ -1,20 +1,12 @@
 package BookKeeping::Controller::API;
 
 use Mojo::Base 'Mojolicious::Controller';
-use DBI;
-use Data::Dumper;
-use Mojo::Log;
-use POSIX qw(strftime locale_h);
-use locale;
 use Mojo::UserAgent;
 use Mojo::IOLoop;
+use Data::Dumper;
+use POSIX qw(strftime locale_h);
+use locale;
 use DateTime;
-
-# Customize log file location and minimum log level
-my $log = Mojo::Log->new(path => 'log/api.log', level => 'debug');
-my $debug=1;
-
-setlocale(LC_CTYPE, "en_US.UTF-8");
 
 # render static docs
 sub docs {
@@ -24,7 +16,7 @@ sub docs {
 
 =head1 BookKeeping API
 
-  http://<URL>/api/<metodo>/<parametri...>
+  http://<URL>/api/<method>/<params...>
 
   http://<URL>/api/...
 
@@ -43,27 +35,26 @@ Returns the session data to the caller as a JSON obj.
 
 =cut
 sub getSession {
-  my $self = shift;
-  my $debug=1;
+  my $self=shift;
+  my $log=$self->api_log;
+  my $log_level=$self->log_level;
 
   #  my ($sec,$min,$hour,$day,$month,$year) = (localtime(time-60*60*24))[0,1,2,3,4,5];
   # my $startlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%2d",$hour).":".sprintf("%2d",$min);
   # ($sec,$min,$hour,$day,$month,$year) = (localtime(time))[0,1,2,3,4,5];
   # my $endlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%2d",$hour).":".sprintf("%2d",$min);
 
-  my %defaults=('theme'       => 'yeti',
+  my %defaults=('theme'       => 'default',
                 'email'       => '',
                 'startepoch'  => time-60*60*24*365, # now - 1year
                 'endepoch'    => time,             # now
-                'timerange'   => 2,
-                # 'startlocale' => $startlocale,
-                # 'endlocale'   => $endlocale,
+                'timerange'   => 2
                );
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
-  if ($debug>0) {
-    $log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip");
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip");
   }
 
   # se non ci sono valori validi usare i valori predefiniti di %defaults
@@ -73,7 +64,7 @@ sub getSession {
       }
     }
 
-  if ($debug>1) { $log->debug("BookKeeping::Controller::API::getSession | Session: ".Dumper($self->session)); }
+  if ($log_level>1) { $self->api_log->debug("BookKeeping::Controller::API::getSession | Session: ".Dumper($self->session)); }
 
   $self->respond_to(
     json => { json => $self->session },
@@ -88,13 +79,14 @@ TBW
 
 =cut
 sub setSession {
-  my $self  = shift;
-  my $debug = 2;
+  my $self=shift;
+  my $log=$self->api_log;
+  my $log_level=2;
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
-  if ($debug>0) {
-    $log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip");
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip");
   }
 
   my $params = $self->req->json;
@@ -114,7 +106,7 @@ sub setSession {
   # $self->session->{startlocale} = $startlocale;
   # $self->session->{endlocale}   = $endlocale;
 
-  if ($debug>1) { $log->debug("BookKeeping::Controller::API::setSession | Session: ".Dumper($self->session)); }
+  if ($log_level>1) { $self->api_log->debug("BookKeeping::Controller::API::setSession | Session: ".Dumper($self->session)); }
 
   $self->respond_to(
     json => { json => { status => 'OK'} },
@@ -132,9 +124,10 @@ Returns an array of json.
 
 =cut
 sub getReceivableInvoices {
-  my $self  = shift;
-  my $debug = 2;
-  my $db = $self->db;
+  my $self=shift;
+  my $db=$self->db;
+  my $log=$self->api_log;
+  my $log_level=2;
 
   my $text_data="invoice_id,workorder,invoice_date,total,due_date,paid_date\n";
   my $sep=';';
@@ -144,8 +137,8 @@ sub getReceivableInvoices {
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
-  if ($debug>0) {
-    $log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip");
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip");
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
@@ -155,18 +148,19 @@ sub getReceivableInvoices {
 
   while (my $inv = $all_invoices->next) {
     # JSON array
-      my $datestring=$inv->{'invoice_date'}->day.'/'.$inv->{'invoice_date'}->month.'/'.$inv->{'invoice_date'}->year;
-      $inv->{'invoice_date'}=$datestring;
-      $datestring=$inv->{'due_date'}->day.'/'.$inv->{'due_date'}->month.'/'.$inv->{'due_date'}->year;
-      $inv->{'due_date'}=$datestring;
-      $datestring=$inv->{'paid_date'}->day.'/'.$inv->{'paid_date'}->month.'/'.$inv->{'paid_date'}->year;
-      $inv->{'paid_date'}=$datestring;
+      # my $datestring=$inv->{'invoice_date'}->day.'/'.$inv->{'invoice_date'}->month.'/'.$inv->{'invoice_date'}->year;
+      # $inv->{'invoice_date'}=$datestring;
+      # $datestring=$inv->{'due_date'}->day.'/'.$inv->{'due_date'}->month.'/'.$inv->{'due_date'}->year;
+      # $inv->{'due_date'}=$datestring;
+      # $datestring=$inv->{'paid_date'}->day.'/'.$inv->{'paid_date'}->month.'/'.$inv->{'paid_date'}->year;
+      # $inv->{'paid_date'}=$datestring;
       push @invoicesArray, $inv;
     # CSV data
       $text_data.=$inv->{'invoice_id'}.$sep.
                   $inv->{'workorder'}.$sep.
                   $inv->{'invoice_date'}.$sep.
                   $inv->{'total'}.$sep.
+                  $inv->{'bank_transfer'}.$sep.
                   $inv->{'due_date'}.$sep.
                   $inv->{'paid_date'}.
                   "\n";
@@ -196,6 +190,17 @@ sub getReceivableInvoices {
 }
 
 sub getPayableInvoices {
+  my $self=shift;
+  my $db=$self->db;
+  my $log=$self->api_log;
+  my $log_level=2;
+
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip");
+  }
+
 
 }
 
@@ -208,14 +213,14 @@ TBW
 =cut
 sub putReceivableInvoice {
   my $self  = shift;
-  my $debug = 2;
+  my $log_level = 2;
   my $status='OK';
   my %newInvoice;
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
-  if ($debug>0) {
-    $log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip");
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip");
   }
 
   my $params = $self->req->json;
@@ -238,11 +243,40 @@ sub putReceivableInvoice {
   # $newInvoice{'invoice_date'} = $params->{'invoice_date'};
   # ...
 
-  if ($debug>1) { $log->debug("BookKeeping::Controller::API::putReceivableInvoice | new Invoice: ".Dumper($params)); }
+  if ($log_level>1) { $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | new Invoice: ".Dumper($params)); }
 
   $self->respond_to(
     json => { json => { status => $status} },
     txt  => { text => $status }
+  );
+}
+
+sub getReceivableInvoicePDF {
+  my $self  = shift;
+  my $log_level = 2;
+  my $invoice_id  = $self->param('invoice_id');
+  my $status='OK';
+  my %hash;
+
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
+  if ($log_level>0) {
+    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip");
+  }
+
+  # get PDF from backend ...
+
+  $self->respond_to(
+    pdf => sub {
+      # $self->tx->res->headers->header('content-disposition' => "attachment; filename=$invoice_id.pdf;");
+      $self->render(text => 'In corso di implementazione');
+    },
+    txt => sub { $self->render(text => 'In corso di implementazione'); },
+  );
+
+  $self->respond_to(
+    json => { json => \%hash },
+    csv  => { text => 'TBD' },
   );
 }
 

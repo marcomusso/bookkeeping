@@ -32,4 +32,9 @@ sub payable {
   $self->render('pages/payable');
 }
 
+sub customers {
+  my $self = shift;
+  $self->render('pages/customers');
+}
+
 "Flip pages";

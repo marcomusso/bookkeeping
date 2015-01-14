@@ -10,7 +10,7 @@ our %Lexicon = (
   # PAGE: HOME
     'Company summary' => 'Riepilogo società',
     'Company name' => 'Nome',
-    'Company type' => 'Type',
+    'Company type' => 'Tipo',
   # TOP NAVBAR MENU
     'Invoice' => 'Fattura',
     'Invoices' => 'Fatture',
@@ -18,6 +18,7 @@ our %Lexicon = (
     'Receivable' => 'Attive',
     'Invoice payable' => 'Fattura passiva',
     'Payable' => 'Passive',
+    'Customers' => 'Clienti',
     'Preferences' => 'Impostazioni',
     'Main' => 'Funzionalità',
     'Logout' => 'Esci',
@@ -34,6 +35,10 @@ our %Lexicon = (
     'Invoice date' => 'Data fattura',
     'Workorder' => 'Commessa',
     'Total (ex. VAT)' => 'Totale (IVA escl.)',
+      'Total before VAT and down payment' => 'Totale prima di IVA e ritenuta d\'acconto', # tooltip
+    'VAT' => 'IVA',
+    'Bank transfer' => 'Bonifico',
+      'Expected amount' => 'Importo atteso', # tooltip
     'Due date' => 'Scadenza fattura',
     'Paid date' => 'Data pagamento',
   # PREFERENCES
@@ -45,7 +50,8 @@ our %Lexicon = (
     'default' => 'predefinito',
     'custom' => 'personalizzato',
     'previous year' => 'anno precedente',
-    'current year' => 'anno corrente'
+    'current year' => 'anno corrente',
+    'To be implemented' => 'In corso di implementazione'
 );
 
 "Vai";
