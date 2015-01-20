@@ -168,7 +168,7 @@ function initPage() {
   width = w - margin.left - margin.right;
   height = h - margin.top - margin.bottom;
 
-  $.getJSON('/api/getreceivableinvoices.json', function(data){
+  $.getJSON('/api/receivableinvoices.json', function(data){
     InvoicesData=data;
     InvoicesData.sort(ascending);
 

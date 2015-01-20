@@ -104,8 +104,8 @@ sub startup {
     my $auth = $r->under->to('auth#check');
     $auth->route('/configuration')        ->to('pages#configuration');
     $auth->route('/books')                ->to('pages#dashboard');
-    $auth->route('/api/receivableinvoices',                   format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
     $auth->route('/api/receivableinvoice',                    format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
+    $auth->route('/api/receivableinvoices',                   format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
     $auth->route('/api/getreceivableinvoicepdf/:invoice_id',  format => [qw(txt pdf)])  ->via('get')  ->to('API#getReceivableInvoicePDF');
   ###################################################################################################
 

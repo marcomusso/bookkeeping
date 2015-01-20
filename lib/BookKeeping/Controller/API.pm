@@ -129,6 +129,13 @@ sub getReceivableInvoices {
   my $log=$self->api_log;
   my $log_level=2;
 
+  my $startdate = DateTime->from_epoch(
+    epoch => $self->session->{'startepoch'}
+  );
+  my $enddate = DateTime->from_epoch(
+    epoch => $self->session->{'endepoch'}
+  );
+
   my $text_data="invoice_id,workorder,invoice_date,total,due_date,paid_date\n";
   my $sep=';';
   my @invoicesArray=();
@@ -142,7 +149,7 @@ sub getReceivableInvoices {
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
-  my $all_invoices=$invoices->find;
+  my $all_invoices=$invoices->find({'invoice_date' => { '$gte' => $startdate, '$lte' => $enddate } });
 
   # { "_id" : ObjectId("5493f5c2f0ef319ba6f7a385"), "invoice_date" : "31/12/2011", "invoice_id" : "0020-11", "workorder" : "Finsoft/SPIMI2011", "units" : 19, "cost_per_unit" : 290, "resource" : "Musso", "notes" : "pagata nel 2012", "total" : "5510,00", "vat" : "21,00%", "bank_transfer" : "5.565,10", "due_date" : "10/02/2012", "paid_date" : "10/02/2012" }
 
