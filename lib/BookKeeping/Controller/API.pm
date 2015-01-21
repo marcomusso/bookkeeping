@@ -49,10 +49,14 @@ sub getSession {
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip".$user);
   }
 
-  # se non ci sono valori validi usare i valori predefiniti di %defaults
+  # without values let's use the default ones in %defaults
     foreach my $key ( keys %defaults ) {
       if (!defined $self->session->{$key} or $self->session->{$key} eq '') {
         $self->session->{$key}=$defaults{$key};
@@ -81,7 +85,11 @@ sub setSession {
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip".$user);
   }
 
   my $params = $self->req->json;
@@ -91,14 +99,6 @@ sub setSession {
   $self->session->{endepoch}   = $params->{'endepoch'};
   $self->session->{timerange}  = $params->{'timerange'};
   $self->session->{theme}      = $params->{'theme'};
-
-  # my ($sec,$min,$hour,$day,$month,$year) = (localtime($params->{'startepoch'}))[0,1,2,3,4,5];
-  # my $startlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%d",$hour).":".sprintf("%02d",$min);
-  # ($sec,$min,$hour,$day,$month,$year) = (localtime($params->{'endepoch'}))[0,1,2,3,4,5];
-  # my $endlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%d",$hour).":".sprintf("%02d",$min);
-
-  # $self->session->{startlocale} = $startlocale;
-  # $self->session->{endlocale}   = $endlocale;
 
   if ($log_level>1) { $self->api_log->debug("BookKeeping::Controller::API::setSession | Session: ".Dumper($self->session)); }
 
@@ -130,6 +130,10 @@ sub getReceivableInvoices {
     epoch => $self->session->{'endepoch'}
   );
 
+  if ($log_level>1) {
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper($startdate));
+  }
+
   my $text_data="invoice_id,workorder,invoice_date,total,due_date,paid_date\n";
   my $sep=';';
   my @invoicesArray=();
@@ -139,7 +143,11 @@ sub getReceivableInvoices {
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip".$user);
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
@@ -192,11 +200,14 @@ sub getPayableInvoices {
   my $log=$self->api_log;
   my $log_level=2;
 
-  my $rua=$self->req->headers->user_agent;
-  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip".$user);
   }
+
 
 
 }
@@ -214,10 +225,12 @@ sub putReceivableInvoice {
   my $status='OK';
   my %newInvoice;
 
-  my $rua=$self->req->headers->user_agent;
-  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip".$user);
   }
 
   my $params = $self->req->json;
@@ -253,11 +266,14 @@ sub getReceivableInvoice {
   my $log_level = 2;
   my $invoice_id = $self->param('invoice_id');
 
-  my $rua=$self->req->headers->user_agent;
-  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | Request by $rua @ $ip");
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | Request by $rua @ $ip".$user);
   }
+
   $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | localfile ".$self->config->{'localdata'}.'/'.$invoice_id.'.pdf');
 
   $self->respond_to(
