@@ -39,15 +39,10 @@ sub getSession {
   my $log=$self->api_log;
   my $log_level=$self->log_level;
 
-  #  my ($sec,$min,$hour,$day,$month,$year) = (localtime(time-60*60*24))[0,1,2,3,4,5];
-  # my $startlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%2d",$hour).":".sprintf("%2d",$min);
-  # ($sec,$min,$hour,$day,$month,$year) = (localtime(time))[0,1,2,3,4,5];
-  # my $endlocale="$day/".($month+1)."/".($year+1900)." ".sprintf("%2d",$hour).":".sprintf("%2d",$min);
-
   my %defaults=('theme'       => 'default',
                 'email'       => '',
                 'startepoch'  => time-60*60*24*365, # now - 1year
-                'endepoch'    => time,             # now
+                'endepoch'    => time,              # now
                 'timerange'   => 2
                );
 
@@ -81,7 +76,7 @@ TBW
 sub setSession {
   my $self=shift;
   my $log=$self->api_log;
-  my $log_level=2;
+  my $log_level=$self->log_level;
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
@@ -95,7 +90,6 @@ sub setSession {
   $self->session->{startepoch} = $params->{'startepoch'};
   $self->session->{endepoch}   = $params->{'endepoch'};
   $self->session->{timerange}  = $params->{'timerange'};
-  $self->session->{username}   = $params->{'username'};;
   $self->session->{theme}      = $params->{'theme'};
 
   # my ($sec,$min,$hour,$day,$month,$year) = (localtime($params->{'startepoch'}))[0,1,2,3,4,5];
@@ -151,18 +145,10 @@ sub getReceivableInvoices {
   my $invoices=$db->get_collection('invoices_receivable');
   my $all_invoices=$invoices->find({'invoice_date' => { '$gte' => $startdate, '$lte' => $enddate } });
 
-  # { "_id" : ObjectId("5493f5c2f0ef319ba6f7a385"), "invoice_date" : "31/12/2011", "invoice_id" : "0020-11", "workorder" : "Finsoft/SPIMI2011", "units" : 19, "cost_per_unit" : 290, "resource" : "Musso", "notes" : "pagata nel 2012", "total" : "5510,00", "vat" : "21,00%", "bank_transfer" : "5.565,10", "due_date" : "10/02/2012", "paid_date" : "10/02/2012" }
-
   while (my $inv = $all_invoices->next) {
-    # JSON array
-      # my $datestring=$inv->{'invoice_date'}->day.'/'.$inv->{'invoice_date'}->month.'/'.$inv->{'invoice_date'}->year;
-      # $inv->{'invoice_date'}=$datestring;
-      # $datestring=$inv->{'due_date'}->day.'/'.$inv->{'due_date'}->month.'/'.$inv->{'due_date'}->year;
-      # $inv->{'due_date'}=$datestring;
-      # $datestring=$inv->{'paid_date'}->day.'/'.$inv->{'paid_date'}->month.'/'.$inv->{'paid_date'}->year;
-      # $inv->{'paid_date'}=$datestring;
+      # JSON array
       push @invoicesArray, $inv;
-    # CSV data
+      # CSV data
       $text_data.=$inv->{'invoice_id'}.$sep.
                   $inv->{'workorder'}.$sep.
                   $inv->{'invoice_date'}.$sep.
@@ -173,7 +159,7 @@ sub getReceivableInvoices {
                   "\n";
   }
 
-  # TODO handle .dt return format
+  # TODO handle .dt return format, something like:
 
   # my $totalRecords=0;
   # if (@$data == 0) {
@@ -187,6 +173,10 @@ sub getReceivableInvoices {
   # }
   # push @{$hash{'iTotalRecords'}}, $totalRecords;
   # push @{$hash{'iTotalDisplayRecords'}}, $totalRecords;
+
+  if ($log_level>1) {
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper(@invoicesArray));
+  }
 
   $self->respond_to(
     json => { json => \@invoicesArray },
@@ -258,32 +248,27 @@ sub putReceivableInvoice {
   );
 }
 
-sub getReceivableInvoicePDF {
-  my $self  = shift;
+sub getReceivableInvoice {
+  my $self = shift;
   my $log_level = 2;
-  my $invoice_id  = $self->param('invoice_id');
-  my $status='OK';
-  my %hash;
+  my $invoice_id = $self->param('invoice_id');
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
   if ($log_level>0) {
-    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip");
+    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | Request by $rua @ $ip");
   }
-
-  # get PDF from backend ...
+  $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | localfile ".$self->config->{'localdata'}.'/'.$invoice_id.'.pdf');
 
   $self->respond_to(
     pdf => sub {
-      # $self->tx->res->headers->header('content-disposition' => "attachment; filename=$invoice_id.pdf;");
-      $self->render(text => 'In corso di implementazione');
+      $self->render_file(
+        'filepath' => $self->config->{'localdata'}.'/invoices/receivable/pdf/'.$invoice_id.'.pdf',
+        'format'   => 'pdf',                 # will change Content-Type "application/x-download" to "application/pdf"
+        'content_disposition' => 'attachment',   # will change Content-Disposition from "attachment" to "inline"
+      );
     },
-    txt => sub { $self->render(text => 'In corso di implementazione'); },
-  );
-
-  $self->respond_to(
-    json => { json => \%hash },
-    csv  => { text => 'TBD' },
+    json => { status => 'in corso di implementazione'}
   );
 }
 

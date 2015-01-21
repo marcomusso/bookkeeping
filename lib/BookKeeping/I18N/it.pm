@@ -4,6 +4,9 @@ package BookKeeping::I18N::it;
 use Mojo::Base 'BookKeeping::I18N';
 
 our %Lexicon = (
+  # Misc
+    'TBD' => 'Funzione non ancora disponibile.',
+    'To be implemented' => 'In corso di implementazione',
   # LOGIN
     'Please login' => 'Effettuare l\'accesso',
     'Login' => 'Accedi',
@@ -20,7 +23,7 @@ our %Lexicon = (
     'Payable' => 'Passive',
     'Customers' => 'Clienti',
     'Preferences' => 'Impostazioni',
-    'Main' => 'Funzionalità',
+    'Main' => 'Menù',
     'Logout' => 'Esci',
   # ADMIN MENU
     # 'Backoffice' => 'Backoffice',
@@ -50,8 +53,7 @@ our %Lexicon = (
     'default' => 'predefinito',
     'custom' => 'personalizzato',
     'previous year' => 'anno precedente',
-    'current year' => 'anno corrente',
-    'To be implemented' => 'In corso di implementazione'
+    'current year' => 'anno corrente'
 );
 
 "Vai";

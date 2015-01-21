@@ -26,15 +26,19 @@ sub startup {
       support_url_langs => [qw(it en)],
       default => 'en'
     );
+    $self->plugin('RenderFile');
   ##########################################
 
   #################################################################################
   # Helpers
     $self->helper(
-          db => sub {
-            # Init Model
-            BookKeeping::Model->init( $config->{db} );
-          }
+      db => sub {
+        # Init Model
+        BookKeeping::Model->init( $config->{db} );
+      }
+    );
+    $self->helper(
+      config => sub { return $config }
     );
     # Log handling
     my $api_log = Mojo::Log->new(path => 'log/api.log', level => 'debug');
@@ -104,9 +108,10 @@ sub startup {
     my $auth = $r->under->to('auth#check');
     $auth->route('/configuration')        ->to('pages#configuration');
     $auth->route('/books')                ->to('pages#dashboard');
-    $auth->route('/api/receivableinvoice',                    format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
-    $auth->route('/api/receivableinvoices',                   format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
-    $auth->route('/api/getreceivableinvoicepdf/:invoice_id',  format => [qw(txt pdf)])  ->via('get')  ->to('API#getReceivableInvoicePDF');
+    $auth->route('/api/receivableinvoice',             format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
+    $auth->route('/api/receivableinvoice/:invoice_id', format => [qw(json pdf)]) ->via('get')  ->to('API#getReceivableInvoice');
+    $auth->route('/api/receivableinvoices',            format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
+
   ###################################################################################################
 
   ###################################################################################################

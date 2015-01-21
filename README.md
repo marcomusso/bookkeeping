@@ -25,7 +25,7 @@ You need a few things:
 * a recent Perl installation (let's say >=5.18.4), if you are not an admin on your computer I suggest ``perlbrew`` to create your own Perl (+modules) local installation; in this case you need quite a lot of space in your home dir (let's say a few hundreds MB)
 * then fire up `cpan` to install the required modules in a breeze:
 
-    cpan Mojolicious Mojolicious::Plugin::I18N MongoDB DateTime
+    cpan Mojolicious Mojolicious::Plugin::I18N Mojolicious::Plugin::RenderFile MongoDB DateTime
 
 After a while you should have everything to try to start the app... In the cloned directory type:
 
