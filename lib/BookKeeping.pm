@@ -9,12 +9,12 @@ use BookKeeping::Model;
 # This method will run once at server start
 sub startup {
   my $self = shift;
-  my $version;
 
   $self->moniker('bookkeeping');
   $self->secrets(['efff74625f7sdrfh3wt95gh45g'],['This secret is used _only_ for validation']);
   $self->sessions->default_expiration(3600*6); # 6 ore
-  $version = $self->defaults({version => '0.1&alpha;'});
+  my $version = $self->defaults({version => '0.1&alpha;'});
+  my $mode = $self->mode;
 
   ##########################################
   # Plugins
@@ -46,7 +46,11 @@ sub startup {
       api_log => sub { return $api_log }
     );
     $self->helper(
-      log_level  => sub { return 2 }
+      log_level  => sub {
+        my $level=0;
+        if ($mode ne 'production') { $level = 2; }
+        return $level;
+      }
     );
   #################################################################################
 
@@ -65,7 +69,9 @@ sub startup {
 
   ###################################################################################################
   # UI
-    $r->get('/')                      ->to('pages#home')          ->name('home');
+    $r->route('/')                   ->to('pages#home')          ->name('home');
+    $r->route('/profile')            ->to('pages#profile')         ->name('profile');
+    $r->route('/messages')           ->to('pages#messages')         ->name('messages');
     # login
       $r->route('/login')             ->to('auth#login')          ->name('auth_login');
       $r->route('/logout')            ->to('auth#logout')         ->name('auth_logout');

@@ -11,6 +11,8 @@ our %Lexicon = (
     'Please login' => 'Effettuare l\'accesso',
     'Login' => 'Accedi',
   # PAGE: HOME
+    'Profile' => 'Profilo',
+    'Messages' => 'Messaggi',
     'Company summary' => 'Riepilogo società',
     'Company name' => 'Nome',
     'Company type' => 'Tipo',

@@ -1,0 +1,12 @@
+% layout 'default';
+% title 'BookKeeping - Messages';
+
+%= javascript '/js/messages.js'
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
+    <div class="list-group">
+      <a href="#" class="list-group-item"><%=l 'To be implemented' %>.</a>
+    </div>
+  </div>
+</div>

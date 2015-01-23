@@ -39,8 +39,8 @@
       %= stylesheet '/css/introjs.min.css'
 
     <%# bootstrap! %>
-      %= javascript "/bootstrap-3.3.1/js/bootstrap.js"
-      %= stylesheet "/bootstrap-3.3.1/css/bootstrap.css"
+      %= javascript "/bootstrap-3.3.2/js/bootstrap.js"
+      %= stylesheet "/bootstrap-3.3.2/css/bootstrap.css"
 
     <%# i18next %>
       %= javascript "/i18next-1.7.7/i18next-1.7.7.min.js"
@@ -123,14 +123,21 @@
               </ul>
             </li>
           % }
-          % if (uc($config->{bookkeeping_env}) ne 'PRODUZIONE') {
+          % if (uc($config->{bookkeeping_env}) ne 'PRODUCTION') {
             <li class="navbar-text"><%= $config->{bookkeeping_env} %></li>
           % }
           <span class="navbar-text"><i id="loading" class="fa fa-spinner fa-inverse"></i></span>
           <span class="navbar-text"><i id="saved" class="fa fa-check-square"></i></span>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          % if (defined $self->session->{email} and $self->session->{email} ne '') {
+        % if (defined $self->session->{email} and $self->session->{email} ne '') {
+            <li id="profile" class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><img src="<%= session 'gravatar' %>" class="gravatar"></img>&nbsp;<%= session 'firstname' %> <%= session 'last_name' %>&nbsp;<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/profile"><%=l 'Profile' %></a></li>
+                <li><a href="/messages"><%=l 'Messages' %> <span class="badge">0</span></a></li>
+              </ul>
+            </li>
             <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" data-toggle="tooltip" data-placement="bottom" title="<%= $self->session->{email} %>" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%></a></li>
           % }
         </ul>

@@ -4,20 +4,18 @@ use base 'Mojolicious::Controller';
 use strict;
 use warnings;
 use Data::Dumper;
-use Mojo::Log;
 use DateTime;
-
-# Customize log file location and minimum log level
-my $log = Mojo::Log->new(path => 'log/auth.log', level => 'debug');
-my $debug=1; # livello del log
+use Digest::MD5 qw(md5_hex);
 
 sub login {
-  my $self     = shift;
-  my $db       = $self->db;
-  my $email    = $self->param('email');
+  my $self = shift;
+  my $db = $self->db;
+  my $log = $self->api_log;
+  my $log_level = $self->log_level;
+  my $email = $self->param('email');
   my $password = $self->param('password');
 
-  if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login"); }
+  if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::login"); }
 
   my $users=$self->db->get_collection('users');
   my $user=$users->find({"email" => "$email", "password" => crypt($password,$password)});
@@ -25,7 +23,7 @@ sub login {
   my @logged_user=$user->all;
 
   if ( @logged_user and (0+@logged_user)==1) {
-      if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login Auth ok for $email"); }
+      if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::login Auth ok for $email"); }
       # set last login time
       $users->update({"_id" => $logged_user[0]->{'_id'}}, {'$set' => {'last_login' => DateTime->now}});
       # save info in session
@@ -33,18 +31,21 @@ sub login {
           email      => $email,
           role       => $logged_user[0]->{'role'},
           firstname  => $logged_user[0]->{'firstname'},
-          lastname   => $logged_user[0]->{'lastname'}
+          lastname   => $logged_user[0]->{'lastname'},
+          gravatar   => 'https://www.gravatar.com/avatar/'.md5_hex($email).'&s=20',
       )->redirect_to('/');
   } else {
-      if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::login Auth failed for $email"); }
+      if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::login Auth failed for $email"); }
       $self->flash( error => 'Unknown email or wrong password' )->redirect_to('/');
   }
 }
 
 sub logout {
-  my $self     = shift;
+  my $self = shift;
+  my $log = $self->api_log;
+  my $log_level = $self->log_level;
 
-  if ($debug>0) { $log->debug("BookKeeping::Controller::Auth::delete logout for ".$self->session('email')); }
+  if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::delete logout for ".$self->session('email')); }
 
   # clear session
   $self->session( email => '',
@@ -56,6 +57,8 @@ sub logout {
 
 sub check {
   my $self = shift;
+  my $log = $self->api_log;
+  my $log_level = $self->log_level;
 
   if ($self->session('email')) {
       return 1;

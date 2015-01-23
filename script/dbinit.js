@@ -1,7 +1,7 @@
 // use db bookkeeping
 db = new Mongo().getDB("bookkeeping");
 // create users collection
-admin = { email: "admin", password: "adpexzg3FUZAk", last_login: new Date(), role: "admin", firstname: "", lastname: "" };
+admin = { email: "admin", password: "adpexzg3FUZAk", last_login: new Date(), role: "admin", firstname: "Admin", lastname: "" };
 // create default admin user (password admin)
 db.users.insert(admin);
 ///////////////////////////////////////////////

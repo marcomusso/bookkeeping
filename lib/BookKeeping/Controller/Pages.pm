@@ -37,4 +37,14 @@ sub customers {
   $self->render('pages/customers');
 }
 
+sub profile {
+  my $self = shift;
+  $self->render('pages/profile');
+}
+
+sub messages {
+  my $self = shift;
+  $self->render('pages/messages');
+}
+
 "Flip pages";

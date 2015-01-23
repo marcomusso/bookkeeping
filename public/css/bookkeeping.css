@@ -1149,3 +1149,13 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
       border-bottom: 1px solid #ccc;
     }*/
   /* Fine typeahead */
+
+.gravatar {
+  width: 20px;
+  height: 20px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
