@@ -1,5 +1,5 @@
 % layout 'default';
-% title 'Ooops! - Performance Monitoring';
+% title 'Ooops!';
 
 <%# Javascript  %>
   %= javascript '/js/404.js'

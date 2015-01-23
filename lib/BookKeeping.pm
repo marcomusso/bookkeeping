@@ -54,6 +54,13 @@ sub startup {
     );
   #################################################################################
 
+  #################################################################################
+  # Hook before_dispatch (needed if behind a reverse proxy)
+    $self->hook(before_dispatch => sub {
+      my $c = shift;
+      $c->req->url->base->path('/bookkeeping/');
+    });
+  #################################################################################
 
   # Router
   my $r = $self->routes;
