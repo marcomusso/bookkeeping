@@ -213,7 +213,7 @@ sub getPayableInvoices {
   # TODO get payable and render to the caller
 
   $self->respond_to(
-    json => { json => { $dummy => 'yes' } },
+    json => { json => { dummy => 'yes' } },
     # csv  => { text => $text_data },
     # TODO datatable format
     # dt => { json => \%dt }
@@ -298,7 +298,7 @@ sub getReceivableInvoice {
         'content_disposition' => 'attachment',   # will change Content-Disposition from "attachment" to "inline"
       );
     },
-    json => { status => 'in corso di implementazione'}
+    json => { status => 'TBD'}
   );
 }
 
