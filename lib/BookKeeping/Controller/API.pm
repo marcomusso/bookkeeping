@@ -200,6 +200,8 @@ sub getPayableInvoices {
   my $log=$self->api_log;
   my $log_level=2;
 
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
     my $user='';
     if ($self->session->{email} and $self->session->{email} ne '') {
@@ -208,8 +210,14 @@ sub getPayableInvoices {
     $self->api_log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip".$user);
   }
 
+  # TODO get payable and render to the caller
 
-
+  $self->respond_to(
+    json => { json => { $dummy => 'yes' } },
+    # csv  => { text => $text_data },
+    # TODO datatable format
+    # dt => { json => \%dt }
+  );
 }
 
 =head2 putReceivableInvoice
@@ -225,6 +233,8 @@ sub putReceivableInvoice {
   my $status='OK';
   my %newInvoice;
 
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
     my $user='';
     if ($self->session->{email} and $self->session->{email} ne '') {
@@ -266,6 +276,8 @@ sub getReceivableInvoice {
   my $log_level = 2;
   my $invoice_id = $self->param('invoice_id');
 
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
   if ($log_level>0) {
     my $user='';
     if ($self->session->{email} and $self->session->{email} ne '') {
@@ -275,6 +287,8 @@ sub getReceivableInvoice {
   }
 
   $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | localfile ".$self->config->{'localdata'}.'/'.$invoice_id.'.pdf');
+
+  # TODO in json is requested respond with invoice details, not pdf
 
   $self->respond_to(
     pdf => sub {
