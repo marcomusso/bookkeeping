@@ -17,6 +17,10 @@ sub login {
 
   if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::login"); }
 
+  my $validation = $self->validation;
+  return $self->render(text => 'Bad CSRF token!', status => 403)
+    if $validation->csrf_protect->has_error('csrf_token');
+
   my $users=$self->db->get_collection('users');
   my $user=$users->find({"email" => "$email", "password" => crypt($password,$password)});
   # let's retrieve all users that match the previous find (should be one of course)
