@@ -47,7 +47,7 @@ sub startup {
     );
     $self->helper(
       log_level  => sub {
-        my $level=0;
+        my $level=1;
         if ($mode ne 'production') { $level = 2; }
         return $level;
       }
@@ -55,11 +55,13 @@ sub startup {
   #################################################################################
 
   #################################################################################
-  # Hook before_dispatch (needed if behind a reverse proxy)
-    $self->hook(before_dispatch => sub {
-      my $c = shift;
-      $c->req->url->base->path('/bookkeeping/');
-    });
+  # Hook before_dispatch (needed if behind a reverse proxy, running under hypnotoad)
+    if ($mode and $mode eq 'production') {
+      $self->hook(before_dispatch => sub {
+          my $self = shift;
+          push @{$self->req->url->base->path->parts}, splice @{$self->req->url->path->parts}, 0, 1;
+      });
+    }
   #################################################################################
 
   # Router
