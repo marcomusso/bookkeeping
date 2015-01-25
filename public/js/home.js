@@ -168,82 +168,84 @@ function initPage() {
   width = w - margin.left - margin.right;
   height = h - margin.top - margin.bottom;
 
-  $.getJSON('/api/receivableinvoices.json', function(data){
-    InvoicesData=data;
-    InvoicesData.sort(ascending);
+  if (mySessionData['email'] !== '') {
+    $.getJSON('/api/receivableinvoices.json', function(data){
+      InvoicesData=data;
+      InvoicesData.sort(ascending);
 
-    // Interactivity
-    sort_btn = d3.select("#controls")
-          .append("button")
-          .classed("btn btn-sm btn-primary pull-right", true)
-          .html("Sort by invoice date: descending")
-          .attr("state", "0");
-    sort_btn.on("click", function(){
-      var self=d3.select(this);
-      var state=+self.attr("state");
-      var txt="Sort by invoice date: ";
-      if (state === 0) {
-        InvoicesData.sort(ascending);
-        state=1;
-        txt+="descending";
-      } else if (state === 1) {
-        InvoicesData.sort(descending);
-        state=0;
-        txt+="ascending";
-      }
-      console.log(InvoicesData);
-      self.attr("state", state);
-      self.html(txt);
+      // Interactivity
+      sort_btn = d3.select("#controls")
+            .append("button")
+            .classed("btn btn-sm btn-primary pull-right", true)
+            .html("Sort by invoice date: descending")
+            .attr("state", "0");
+      sort_btn.on("click", function(){
+        var self=d3.select(this);
+        var state=+self.attr("state");
+        var txt="Sort by invoice date: ";
+        if (state === 0) {
+          InvoicesData.sort(ascending);
+          state=1;
+          txt+="descending";
+        } else if (state === 1) {
+          InvoicesData.sort(descending);
+          state=0;
+          txt+="ascending";
+        }
+        console.log(InvoicesData);
+        self.attr("state", state);
+        self.html(txt);
+        plot.call(chart, {
+          data: InvoicesData,
+          axis:{
+            x: xAxis,
+            y: yAxis
+          },
+          gridlines: yGridlines,
+          initialize: false
+        });
+      });
+
+      xScale = d3.scale.ordinal()
+                   .domain(InvoicesData.map(function(entry){
+                      return entry.invoice_id;
+                   }))
+                   .rangeBands([0, width]);
+      yScale = d3.scale.linear()
+                 .domain([0, d3.max(InvoicesData, function(d) { return d.total; })])
+                 .range([height, 0]);
+      xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom");
+      yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left");
+      yGridlines=d3.svg.axis()
+                     .scale(yScale)
+                     .tickSize(-width,0,0)
+                     .tickFormat("")
+                     .orient("left");
+      svg = d3.select("#graphcontainer")
+          .append("svg")
+          .attr("id", "chart")
+          .attr("width", w)
+          .attr("height", h);
+      chart = svg.append("g")
+            .classed("display", true)
+            .attr("transform", "translate("+margin.left+","+margin.top +")");
+
+      // GRAPH IT!
       plot.call(chart, {
-        data: InvoicesData,
+        data: data,
         axis:{
           x: xAxis,
           y: yAxis
         },
         gridlines: yGridlines,
-        initialize: false
+        initialize: true
       });
     });
-
-    xScale = d3.scale.ordinal()
-                 .domain(InvoicesData.map(function(entry){
-                    return entry.invoice_id;
-                 }))
-                 .rangeBands([0, width]);
-    yScale = d3.scale.linear()
-               .domain([0, d3.max(InvoicesData, function(d) { return d.total; })])
-               .range([height, 0]);
-    xAxis = d3.svg.axis()
-                .scale(xScale)
-                .orient("bottom");
-    yAxis = d3.svg.axis()
-                .scale(yScale)
-                .orient("left");
-    yGridlines=d3.svg.axis()
-                   .scale(yScale)
-                   .tickSize(-width,0,0)
-                   .tickFormat("")
-                   .orient("left");
-    svg = d3.select("#graphcontainer")
-        .append("svg")
-        .attr("id", "chart")
-        .attr("width", w)
-        .attr("height", h);
-    chart = svg.append("g")
-          .classed("display", true)
-          .attr("transform", "translate("+margin.left+","+margin.top +")");
-
-    // GRAPH IT!
-    plot.call(chart, {
-      data: data,
-      axis:{
-        x: xAxis,
-        y: yAxis
-      },
-      gridlines: yGridlines,
-      initialize: true
-    });
-  });
+  }
 }
 
 function refreshPage() {

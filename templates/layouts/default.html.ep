@@ -55,6 +55,11 @@
       %= javascript '/bootstrap-growl-2.0.1/bootstrap-growl.min.js'
       %= stylesheet '/css/animate.css'
 
+    %= javascript begin
+      var myPrefix = '<%= url_for '/' %>';
+      if (myPrefix === '/') { myPrefix = ''; }
+    % end
+
     <%# main js, common to all pages %>
       %= javascript '/js/default.js'
 

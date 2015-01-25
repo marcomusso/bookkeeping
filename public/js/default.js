@@ -58,7 +58,7 @@ function uniqueArray(a) {
 // save session
   function setSession() {
     console.log( "setSession called" );
-    $.post( "/api/setSession",
+    $.post(myPrefix+"/api/setSession",
       JSON.stringify(mySessionData)
     ).fail(function() {
       alert( "Unable to save session. Please contact support." );
@@ -119,11 +119,11 @@ $("document").ready(function() {
   // Enable tooltips
   $("body").tooltip({ selector: '[data-toggle=tooltip]' });
   // settings: load session and start page-related housekeeping via initPage()
-    $.getJSON("/api/getSession.json", function( data ) {
+    $.getJSON(myPrefix+"/api/getSession.json", function( data ) {
       $.each( data, function( key, val ) {
         mySessionData[key]=val;
         var tmpDate;
-        console.log("getSessionData: "+key+' = '+val);
+        // console.log("getSessionData: "+key+' = '+val);
       });
     }).done(function() {
         initPage();

@@ -3,7 +3,7 @@ function initPage() {
   // $(function () {
   //   $('[data-toggle="tooltip"]').tooltip();
   // });
-  $.getJSON('/api/receivableinvoices.json', function(data){
+  $.getJSON(myPrefix+'/api/receivableinvoices.json', function(data){
     console.log(data);
     $('#invoices_receivable > tbody').empty();
     for (var i = 0; i < data.length; i++) {
