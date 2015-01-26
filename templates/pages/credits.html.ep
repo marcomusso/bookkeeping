@@ -4,16 +4,9 @@
 <%# Javascript  %>
   %= javascript '/js/credits.js'
 
-<div class="row">
-  <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
-    <div class="list-group">
-      <a href="#" class="list-group-item"><%=l 'To be implemented' %>.</a>
-    </div>
-  </div>
-</div>
-
 <div class="row text-center">
   %= tag h1 => 'BookKeeping'
+  %= tag h5 => 'A simple Mojolicious app to keep track of your invoices.'
 </div>
 
 <div class="row">
@@ -21,7 +14,6 @@
   <div class="col-lg-10 col-md-10">
     <ul id="mytabs" class="nav nav-tabs nav-justified">
       <li class="active"><a href="#changelog" data-toggle="tab">Change log</a></li>
-      <li><a href="#env" data-toggle="tab">Env</a></li>
       <li><a href="#team" data-toggle="tab">Team</a></li>
     </ul>
     <div id="mytab-content" class="tab-content">
@@ -30,18 +22,9 @@
           <div class="col-lg-1 col-md-1"></div>
           <div class="col-lg-10 col-md-10" style="margin-top:50px;margin-bottom:50px;">
           <ul>
-            <li>v0.1</li>
+            <li><span class="versione_alpha">v0.1</span> first draft. MongoDB backend to store invoices metadata, API to add/query invoices, external documents on filesystem, logging, localizations (server only) and some code to accomodate the app behind a reverse proxy.</li>
           </ul>
           </div>
-          <div class="col-lg-1 col-md-1"></div>
-        </div>
-      </div>
-      <div id="env" class="tab-pane fade in">
-        <div class="row">
-          <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-10 col-md-10">
-              TBD
-            </div>
           <div class="col-lg-1 col-md-1"></div>
         </div>
       </div>
@@ -50,7 +33,7 @@
           <div class="col-lg-1 col-md-1"></div>
             <div class="col-lg-10 col-md-10">
               <ul>
-                <li>Marco Musso: concept, implemetation and bugs</li>
+                <li>Marco Musso: concept, implementation, features and bugs.</li>
               </ul>
             </div>
           <div class="col-lg-1 col-md-1"></div>

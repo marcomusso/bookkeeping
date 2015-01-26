@@ -4,7 +4,6 @@ function initPage() {
   //   $('[data-toggle="tooltip"]').tooltip();
   // });
   $.getJSON(myPrefix+'/api/receivableinvoices.json', function(data){
-    console.log(data);
     $('#invoices_receivable > tbody').empty();
     for (var i = 0; i < data.length; i++) {
       var invoice_date;

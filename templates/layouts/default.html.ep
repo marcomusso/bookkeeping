@@ -41,6 +41,7 @@
     <%# bootstrap! %>
       %= javascript "/bootstrap-3.3.2/js/bootstrap.js"
       %= stylesheet "/bootstrap-3.3.2/css/bootstrap.css"
+      %= stylesheet "/bootstrap-3.3.2/css/bootstrap-theme.css"
 
     <%# i18next %>
       %= javascript "/i18next-1.7.7/i18next-1.7.7.min.js"
@@ -78,7 +79,7 @@
       %= stylesheet '/font-awesome-4.2.0/css/font-awesome.min.css'
 </head>
 
-<body>
+<body style="background:url('<%= url_for '/' %>images/pattern.png') repeat scroll 0 0 rgba(0, 0, 0, 0);">
 
 <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -141,10 +142,11 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle"><img src="<%= session 'gravatar' %>" class="gravatar"></img>&nbsp;<%= session 'firstname' %> <%= session 'lastname' %>&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="<%= url_for "profile" %>"><%=l 'Profile' %></a></li>
-                  <li><a href="<%= url_for "messages" %>"><%=l 'Messages' %> <span class="badge">0</span></a></li>
+                  <li><a href="<%= url_for "messages" %>"><%=l 'Messages' %> <span id="unread_messages" class="badge">0</span></a></li>
+                  <li class="divider"></li>
+                  <li><a href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%></a></li>
                 </ul>
               </li>
-              <li><p class="text-center">&nbsp;&nbsp;<a class="btn btn-sm btn-primary navbar-btn pull-right" data-toggle="tooltip" data-placement="bottom" title="<%= $self->session->{email} %>" href='<%= url_for "auth_logout" %>'><i class="fa fa-sign-out"></i>&nbsp;<%=l 'Logout'%></a></li>
           </ul>
         % }
       </div><!--/.nav-collapse -->

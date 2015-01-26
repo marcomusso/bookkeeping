@@ -16,7 +16,6 @@ html,
 body {
   height: 100%;
   padding-top: 30px;
-  background: url("/images/pattern.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
 }
@@ -61,6 +60,8 @@ body {
   border-left: 6px solid transparent;
   content: '';
 }
+
+.navbar .navbar-right > li > .dropdown-menu:before, .navbar .nav > li > .dropdown-menu.navbar-right:before {right: 12px; left: auto;} .navbar .navbar-right > li > .dropdown-menu:after, .navbar .nav > li > .dropdown-menu.navbar-right:after {right: 13px; left: auto;}
 
 /* Open dropdown-menu on hover */
 ul.nav li.dropdown:hover > ul.dropdown-menu {

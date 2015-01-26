@@ -39,11 +39,23 @@ sub getSession {
   my $log=$self->api_log;
   my $log_level=$self->log_level;
 
+  my $dt = DateTime->from_epoch( epoch => time );
+  my $year = $dt->year; # current year
+  $dt = DateTime->new( # yyyy-01-01 01:00:00.000
+    year   => $year,
+    month  => 1,
+    day    => 1,
+    hour   => 1,
+    minute => 0,
+    second => 0,
+    nanosecond => 0
+  );
+
   my %defaults=('theme'       => 'default',
                 'email'       => '',
-                'startepoch'  => time-60*60*24*365, # now - 1year
-                'endepoch'    => time,              # now
-                'timerange'   => 2
+                'startepoch'  => $dt->epoch, # start of the current year
+                'endepoch'    => time,       # now
+                'timerange'   => 0
                );
 
   my $rua=$self->req->headers->user_agent;
