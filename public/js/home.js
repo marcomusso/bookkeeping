@@ -169,7 +169,7 @@ function initPage() {
   height = h - margin.top - margin.bottom;
 
   if (mySessionData['email'] !== '') {
-    $.getJSON('/api/receivableinvoices.json', function(data){
+    $.getJSON(myPrefix+'/api/receivableinvoices.json', function(data){
       InvoicesData=data;
       InvoicesData.sort(ascending);
 

@@ -47,12 +47,12 @@ function uniqueArray(a) {
 
 // available themes
   var themes = {
-    "default"  : "/bootstrap-3.3.1/css/bootstrap-theme.css",
-    "cosmo"    : "/css/bootstrap-themes/bootstrap-cosmo.min.css",
-    "flatly"   : "/css/bootstrap-themes/bootstrap-flatly.min.css",
-    "slate"    : "/css/bootstrap-themes/bootstrap-slate.min.css",
-    "spacelab" : "/css/bootstrap-themes/bootstrap-spacelab.min.css",
-    "yeti"     : "/css/bootstrap-themes/bootstrap-yeti.min.css"
+    "default"  : myPrefix+"/bootstrap-3.3.1/css/bootstrap-theme.css",
+    "cosmo"    : myPrefix+"/css/bootstrap-themes/bootstrap-cosmo.min.css",
+    "flatly"   : myPrefix+"/css/bootstrap-themes/bootstrap-flatly.min.css",
+    "slate"    : myPrefix+"/css/bootstrap-themes/bootstrap-slate.min.css",
+    "spacelab" : myPrefix+"/css/bootstrap-themes/bootstrap-spacelab.min.css",
+    "yeti"     : myPrefix+"/css/bootstrap-themes/bootstrap-yeti.min.css"
   };
 
 // save session

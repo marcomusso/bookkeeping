@@ -78,9 +78,9 @@ sub startup {
 
   ###################################################################################################
   # UI
-    $r->route('/')                   ->to('pages#home')          ->name('home');
-    $r->route('/profile')            ->to('pages#profile')         ->name('profile');
-    $r->route('/messages')           ->to('pages#messages')         ->name('messages');
+    $r->route('/')                   ->to('pages#home')           ->name('home');
+    $r->route('/profile')            ->to('pages#profile')        ->name('profile');
+    $r->route('/messages')           ->to('pages#messages')       ->name('messages');
     # login
       $r->route('/login')             ->to('auth#login')          ->name('auth_login');
       $r->route('/logout')            ->to('auth#logout')         ->name('auth_logout');
@@ -91,12 +91,12 @@ sub startup {
       $r->route('/config') ->to('pages#config');
 
     # user role
-      $r->route('/invoices/receivable') ->to('pages#receivable');
-      $r->route('/invoices/payable')    ->to('pages#payable');
-      $r->route('/customers')           ->to('pages#customers');
-      $r->route('/feedback')            ->to('pages#feedback');
-      $r->route('/credits')             ->to('pages#credits');
-      $r->route('/preferences')         ->to('pages#preferences');
+      $r->route('/invoices/receivable') ->to('pages#receivable')   ->name('invoicesreceivable');
+      $r->route('/invoices/payable')    ->to('pages#payable')      ->name('invoicespayable');
+      $r->route('/customers')           ->to('pages#customers')    ->name('customers');
+      $r->route('/feedback')            ->to('pages#feedback')     ->name('feedback');
+      $r->route('/credits')             ->to('pages#credits')      ->name('credits');
+      $r->route('/preferences')         ->to('pages#preferences')  ->name('preferences');
   ###################################################################################################
 
   ###################################################################################################
@@ -115,8 +115,8 @@ sub startup {
   ###################################################################################################
   # auth needed #
     my $auth = $r->under->to('auth#check');
-    $auth->route('/configuration')        ->to('pages#configuration');
-    $auth->route('/books')                ->to('pages#dashboard');
+    $auth->route('/configuration')        ->to('pages#configuration')  ->name('configuration');
+    $auth->route('/books')                ->to('pages#dashboard')      ->name('books');
     $auth->route('/api/receivableinvoice',             format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
     $auth->route('/api/receivableinvoice/:invoice_id', format => [qw(json pdf)]) ->via('get')  ->to('API#getReceivableInvoice');
     $auth->route('/api/receivableinvoices',            format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
