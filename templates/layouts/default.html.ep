@@ -76,7 +76,7 @@
     <%# Font Awesome! %>
       <%# CC-BY-3.0, so we also include a mention of Font Awesome and its URL in the source code. %>
       <%# http://fortawesome.github.io/Font-Awesome/ %>
-      %= stylesheet '/font-awesome-4.2.0/css/font-awesome.min.css'
+      %= stylesheet '/font-awesome-4.3.0/css/font-awesome.min.css'
 </head>
 
 <body style="background:url('<%= url_for '/' %>/images/pattern.png') repeat scroll 0 0 rgba(0, 0, 0, 0);">
