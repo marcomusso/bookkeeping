@@ -1183,3 +1183,9 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
   -khtml-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
+
+/* bigger number bubble for introjs */
+.introjs-helperNumberLayer {
+  width: 30px;
+  height: 30px;
+}
