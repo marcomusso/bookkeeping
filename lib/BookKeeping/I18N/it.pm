@@ -3,10 +3,13 @@ package BookKeeping::I18N::it;
 
 use Mojo::Base 'BookKeeping::I18N';
 
+use utf8;
+
 our %Lexicon = (
   # Misc
     'TBD' => 'Funzione non ancora disponibile.',
     'To be implemented' => 'In corso di implementazione',
+    'Some help on the current page' => 'Spiegazione delle funzionalità di questa pagina',
   # LOGIN
     'Please login' => 'Effettuare l\'accesso',
     'Login' => 'Accedi',

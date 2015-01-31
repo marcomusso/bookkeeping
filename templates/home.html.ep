@@ -14,18 +14,84 @@
           <div class="panel-heading">
             <h3 class="panel-title"><%=l 'Company summary'%></h3>
           </div>
-          <div class="panel-body">
+          <div id="company-summary" class="panel-body">
             <div class="row">
-              <div class="col-md-col-4 col-lg-4"><%=l 'Company name'%>:</div>
-              <div class="col-md-col-4 col-lg-4"><%=l 'Company type'%>:</div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'Company name'%>: <span id="company-name"></span></div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'Company type'%>: <span id="company-type"></span></div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'VAT'%>: <span id="vat"></span></div>
             </div>
             <hr>
-            <div id="controls"></div>
-            <div id="graphcontainer" width="100%" style="padding:0;margin:0;"></div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+                <div id="controls"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="graphcontainer" width="100%" style="padding:0;margin:0;"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <%# ################################################### %>
+    <%# help using intro.js %>
+    <%# ################################################### %>
+      <script>
+        function startIntro(){
+          var intro = introJs();
+          intro.setOptions({
+            exitOnEsc: true,
+            exitOnOverlayClick: true,
+            scrollToElement: true,
+            tooltipPosition: 'auto',
+            steps: [
+              // generic help for navbar
+                {
+                  intro: i18n.t("Welcome to BookKeeping!<br>Use you mouse or keyboard to move between help sections.<br>You can exit by pressing ESC or ENTER anytime.")
+                },
+                {
+                  element: '#nav0',
+                  intro: i18n.t("By clicking here you can go back to the summary page"),
+                },
+                {
+                  element: '#nav1',
+                  intro: i18n.t("nav1"),
+                },
+                {
+                  element: '#nav2',
+                  intro: i18n.t("nav2"),
+                },
+                {
+                  element: '#nav3',
+                  intro: i18n.t("nav3"),
+                },
+                {
+                  element: '#nav4',
+                  intro: i18n.t("nav4"),
+                },
+                {
+                  element: '#nav5',
+                  intro: i18n.t("nav5"),
+                  tooltipPosition: 'top'
+                },
+                {
+                  element: '#nav6',
+                  intro: i18n.t("nav6"),
+                  tooltipPosition: 'top'
+                },
+              // page-specific elements
+                {
+                  element: '#company-summary',
+                  intro: i18n.t("Here you can find a summary of the selewcted period (in the settings page). The default is the current year."),
+                }
+              ]
+          });
+          intro.start();
+        }
+      </script>
 
   % } else {
 
@@ -62,28 +128,3 @@
   % }
 
 </div>
-
-%# ################################################### %>
-<%# help using intro.js %>
-<%# ################################################### %>
-  <script>
-    function startIntro(){
-      var intro = introJs();
-      intro.setOptions({
-            steps: [
-              {
-                intro: "Start help"
-              },
-              {
-                element: '#0',
-                intro: "TBD",
-              },
-              {
-                element: '#1',
-                intro: "TBD",
-              }
-            ]
-      });
-      intro.start();
-    }
-  </script>

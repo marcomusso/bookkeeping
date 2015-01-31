@@ -1,0 +1,10 @@
+{
+  "intro": "Benvenuto in BookKeeping!<br>Usa il mouse o le frecce per tornare indietro e per avanzare.<br>In qualsiasi momento puoi premere ESC (o ENTER) per uscire dall'help.",
+  "home": "Per tornare alla pagina del riepilogo",
+  "Here you can find a summary of the selected period (in the settings page). The default is the current year.": "Qui viene riportato un riassunto della fatturazione nel periodo scelto nelle impostazioni, il default è l'anno in corso.",
+  "Invoice id": "Identificativo fattura",
+  "Invoice amount": "Importo fattura (€)",
+  "Sort by invoice date": "Ordina per data fattura",
+  "ascending": "crescente",
+  "descending": "descrescente"
+}

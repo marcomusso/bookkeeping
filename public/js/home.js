@@ -51,7 +51,7 @@ function drawAxis(params){
       .attr("y", 0)
       .style("text-anchor", "middle")
       .attr("transform","translate(-60,"+height/2+") rotate(-90)")
-      .text("Invoice amount (€)");
+      .text(i18n.t("Invoice amount"));
 
     //This is the x label
     this.select(".x.axis")
@@ -60,7 +60,7 @@ function drawAxis(params){
       .attr("y", 0)
       .style("text-anchor", "middle")
       .attr("transform", "translate(" + width/2 + ",80)")
-      .text("Invoice id");
+      .text(i18n.t("Invoice id"));
 
   } else if(params.initialize === false){
     //Update info
@@ -177,20 +177,20 @@ function initPage() {
       sort_btn = d3.select("#controls")
             .append("button")
             .classed("btn btn-sm btn-primary pull-right", true)
-            .html("Sort by invoice date: descending")
+            .html(i18n.t("Sort by invoice date")+': '+i18n.t('descending'))
             .attr("state", "0");
       sort_btn.on("click", function(){
         var self=d3.select(this);
         var state=+self.attr("state");
-        var txt="Sort by invoice date: ";
+        var txt=i18n.t("Sort by invoice date")+": ";
         if (state === 0) {
           InvoicesData.sort(ascending);
           state=1;
-          txt+="descending";
+          txt+=i18n.t("descending");
         } else if (state === 1) {
           InvoicesData.sort(descending);
           state=0;
-          txt+="ascending";
+          txt+=i18n.t("ascending");
         }
         console.log(InvoicesData);
         self.attr("state", state);

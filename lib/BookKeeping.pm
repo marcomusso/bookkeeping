@@ -37,9 +37,9 @@ sub startup {
         BookKeeping::Model->init( $config->{db} );
       }
     );
-    $self->helper(
-      config => sub { return $config }
-    );
+    # $self->helper(
+    #   config => sub { return $config }
+    # );
     # Log handling
     my $api_log = Mojo::Log->new(path => 'log/api.log', level => 'debug');
     $self->helper(
@@ -71,7 +71,7 @@ sub startup {
   $self->defaults(layout => 'default');
 
   my $sessions = $self->sessions;
-  $self        = $self->sessions(Mojolicious::Sessions->new);
+  $self = $self->sessions(Mojolicious::Sessions->new);
   $self->sessions->cookie_name('bookkeeping');
 
   $r->namespaces(['BookKeeping::Controller']);

@@ -130,4 +130,14 @@ $("document").ready(function() {
     }).fail(function() {
       alertThis('Unable to read session information.','danger');
     });
+  // finally init I18N for js strings
+  i18n.init(
+    {
+      resGetPath: myPrefix+'/js/i18next-translations/__lng__.json',
+      fallbackLng: 'en',
+      preload: ['en']
+    },
+    function(t) {
+    console.log('i18next init done');
+  });
 });
