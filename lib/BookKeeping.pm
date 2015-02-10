@@ -12,7 +12,7 @@ sub startup {
 
   $self->moniker('bookkeeping');
   $self->secrets(['efff74625f7sdrfh3wt95gh45g'],['This secret is used _only_ for validation']);
-  $self->sessions->default_expiration(3600*6); # 6 ore
+  $self->sessions->default_expiration(60*60*24); # 24 ore
   my $version = $self->defaults({version => '0.1&alpha;'});
   my $mode = $self->mode;
 
@@ -120,7 +120,7 @@ sub startup {
     $auth->route('/api/receivableinvoice',             format => [qw(json)])     ->via('put')  ->to('API#putReceivableInvoice');
     $auth->route('/api/receivableinvoice/:invoice_id', format => [qw(json pdf)]) ->via('get')  ->to('API#getReceivableInvoice');
     $auth->route('/api/receivableinvoices',            format => [qw(csv json)]) ->via('get')  ->to('API#getReceivableInvoices');
-
+    $auth->route('/api/company/:company_id',           format => [qw(json)])     ->via('get')  ->to('API#getCompany');
   ###################################################################################################
 
   ###################################################################################################

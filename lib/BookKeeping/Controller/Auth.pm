@@ -37,6 +37,7 @@ sub login {
           firstname  => $logged_user[0]->{'firstname'},
           lastname   => $logged_user[0]->{'lastname'},
           gravatar   => 'https://www.gravatar.com/avatar/'.md5_hex($email).'&s=20',
+          expiration => time + 60*60*24
       )->redirect_to('/');
   } else {
       if ($log_level>0) { $log->debug("BookKeeping::Controller::Auth::login Auth failed for $email"); }
@@ -55,7 +56,8 @@ sub logout {
   $self->session( email => '',
                   role => '',
                   firstname => '',
-                  lastname => ''
+                  lastname => '',
+                  expires => 1
                   )->redirect_to('/');
 }
 

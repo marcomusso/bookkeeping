@@ -314,4 +314,37 @@ sub getReceivableInvoice {
   );
 }
 
+sub getCompany {
+  my $self = shift;
+  my $log_level = 2;
+  my $company_id = $self->param('company_id');
+  my %company;
+
+  my $rua=$self->req->headers->user_agent;
+  my $ip=$self->tx->remote_address;
+  if ($log_level>0) {
+    my $user='';
+    if ($self->session->{email} and $self->session->{email} ne '') {
+      $user=' (logged user: '.$self->session->{email}.')';
+    }
+    $self->api_log->debug("BookKeeping::Controller::API::getCompany | Request by $rua @ $ip".$user);
+  }
+
+  # get company by id
+
+  my $company=$db->get_collection('companies');
+  my $all_invoices=$company->find({'company_id' => $company_id });
+
+  $self->$api_log->debug(Dumper($all_invoices));
+
+  while (my $inv = $all_invoices->next) {
+      # JSON array
+      push @invoicesArray, $inv;
+  }
+
+  $self->respond_to(
+    json => { json => %company }
+  );
+}
+
 "The oracle has spoken (quietly)";
