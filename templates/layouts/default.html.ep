@@ -79,7 +79,7 @@
       %= stylesheet '/font-awesome-4.3.0/css/font-awesome.min.css'
 </head>
 
-<body style="background:url('<%= url_for '/' %>images/pattern.png') repeat scroll 0 0 rgba(0, 0, 0, 0);">
+<body style="background:url('<%= url_for '/' %>/images/pattern.png') repeat scroll 0 0 rgba(0, 0, 0, 0);">
 
 <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
