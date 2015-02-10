@@ -133,7 +133,7 @@ sub getReceivableInvoices {
   my $self=shift;
   my $db=$self->db;
   my $log=$self->api_log;
-  my $log_level=2;
+  my $log_level=$self->log_level;
 
   my $startdate = DateTime->from_epoch(
     epoch => $self->session->{'startepoch'}
@@ -210,7 +210,7 @@ sub getPayableInvoices {
   my $self=shift;
   my $db=$self->db;
   my $log=$self->api_log;
-  my $log_level=2;
+  my $log_level=$self->log_level;
 
   my $rua=$self->req->headers->user_agent;
   my $ip=$self->tx->remote_address;
@@ -241,7 +241,10 @@ TBW
 =cut
 sub putReceivableInvoice {
   my $self  = shift;
-  my $log_level = 2;
+  my $db=$self->db;
+  my $log=$self->api_log;
+  my $log_level=$self->log_level;
+
   my $status='OK';
   my %newInvoice;
 
@@ -285,7 +288,10 @@ sub putReceivableInvoice {
 
 sub getReceivableInvoice {
   my $self = shift;
-  my $log_level = 2;
+  my $db=$self->db;
+  my $log=$self->api_log;
+  my $log_level=$self->log_level;
+
   my $invoice_id = $self->param('invoice_id');
 
   my $rua=$self->req->headers->user_agent;
@@ -316,7 +322,10 @@ sub getReceivableInvoice {
 
 sub getCompany {
   my $self = shift;
-  my $log_level = 2;
+  my $db=$self->db;
+  my $log=$self->api_log;
+  my $log_level=$self->log_level;
+
   my $company_id = $self->param('company_id');
   my %company;
 
