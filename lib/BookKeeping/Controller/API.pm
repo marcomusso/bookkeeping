@@ -342,14 +342,6 @@ sub getCompany {
   # get company by id
 
   my $company=$db->get_collection('companies');
-  my $all_invoices=$company->find({'company_id' => $company_id });
-
-  $self->$api_log->debug(Dumper($all_invoices));
-
-  while (my $inv = $all_invoices->next) {
-      # JSON array
-      push @invoicesArray, $inv;
-  }
 
   $self->respond_to(
     json => { json => %company }
