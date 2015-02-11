@@ -129,9 +129,6 @@
               </ul>
             </li>
           % }
-          % if (uc($config->{bookkeeping_env}) ne 'PRODUCTION') {
-            <li class="navbar-text"><%= $config->{bookkeeping_env} %></li>
-          % }
           <span id="#nav3" class="navbar-text"><i id="loading" class="fa fa-spinner fa-inverse"></i></span>
           <span class="navbar-text"><i id="saved" class="fa fa-check-square"></i></span>
         </ul>

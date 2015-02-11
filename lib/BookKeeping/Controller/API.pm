@@ -65,7 +65,7 @@ sub getSession {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::getSession | Request by $rua @ $ip".$user);
   }
 
   # without values let's use the default ones in %defaults
@@ -101,7 +101,7 @@ sub setSession {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::setSession | Request by $rua @ $ip".$user);
   }
 
   my $params = $self->req->json;
@@ -143,7 +143,7 @@ sub getReceivableInvoices {
   );
 
   if ($log_level>1) {
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper($startdate));
+    $log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper($startdate));
   }
 
   my $text_data="invoice_id,workorder,invoice_date,total,due_date,paid_date\n";
@@ -159,7 +159,7 @@ sub getReceivableInvoices {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::getReceivableInvoices | Request by $rua @ $ip".$user);
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
@@ -195,7 +195,7 @@ sub getReceivableInvoices {
   # push @{$hash{'iTotalDisplayRecords'}}, $totalRecords;
 
   if ($log_level>1) {
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper(@invoicesArray));
+    $log->debug("BookKeeping::Controller::API::getReceivableInvoices | Resultset ".Dumper(@invoicesArray));
   }
 
   $self->respond_to(
@@ -219,7 +219,7 @@ sub getPayableInvoices {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::getPayableInvoices | Request by $rua @ $ip".$user);
   }
 
   # TODO get payable and render to the caller
@@ -240,7 +240,7 @@ TBW
 
 =cut
 sub putReceivableInvoice {
-  my $self  = shift;
+  my $self = shift;
   my $db=$self->db;
   my $log=$self->api_log;
   my $log_level=$self->log_level;
@@ -255,7 +255,7 @@ sub putReceivableInvoice {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::putReceivableInvoice | Request by $rua @ $ip".$user);
   }
 
   my $params = $self->req->json;
@@ -301,10 +301,10 @@ sub getReceivableInvoice {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::getReceivableInvoice | Request by $rua @ $ip".$user);
   }
 
-  $self->api_log->debug("BookKeeping::Controller::API::getReceivableInvoice | localfile ".$self->config->{'localdata'}.'/'.$invoice_id.'.pdf');
+  $log->debug("BookKeeping::Controller::API::getReceivableInvoice | localfile ".$self->config->{'localdata'}.'/'.$invoice_id.'.pdf');
 
   # TODO in json is requested respond with invoice details, not pdf
 
@@ -336,7 +336,7 @@ sub getCompany {
     if ($self->session->{email} and $self->session->{email} ne '') {
       $user=' (logged user: '.$self->session->{email}.')';
     }
-    $self->api_log->debug("BookKeeping::Controller::API::getCompany | Request by $rua @ $ip".$user);
+    $log->debug("BookKeeping::Controller::API::getCompany | Request by $rua @ $ip".$user);
   }
 
   # get company by id
