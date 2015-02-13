@@ -52,6 +52,11 @@ sub startup {
         return $level;
       }
     );
+    # $self->renderer->add_helper(ip => sub {
+    #   my $self = shift;
+    #   my $for  = $self->req->headers->header('X-Forwarded-For');
+    #   return $for && $for !~ /unknown/i ? $for : undef || $self->req->headers->header('X-Real-IP') || $self->tx->{remote_address};
+    # });
   #################################################################################
 
   #################################################################################
