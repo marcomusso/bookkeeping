@@ -41,17 +41,15 @@ Open your browser and... well, you know (probably you'll want to take a look at 
 
 A lot!
 
-But for sure:
-
-* proper I18N for javascript files (probably via [i18next](http://i18next.com))
-
 # Prerequisites/included libraries
 
-  - [Bootstrap](http:///getbootstrap.com) (3.3.1)
+  - [Bootstrap](http:///getbootstrap.com) (3.3.2)
   - [D3](http://d3js.org) (3.4.13)
   - [jquery (>=2.0.3)](http://jquery.com) (2.1.1)
   - [DataTables.net](http://datatables.net) (1.10.2)
   - [DateTime Picker](http://www.malot.fr/bootstrap-datetimepicker/) (2.3.1)
-  - [intro.js](http://usablica.github.io/intro.js/) v0.9.0 for the help text
+  - [intro.js](http://usablica.github.io/intro.js/) v1.0.0 for the help text
+  - [i18next](http://i18next.com)
   - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/) v2.0.1
     - [Animate.css](http://daneden.github.io/animate.css/) (github master @ 11/12/2014, v3.1.0)
+  - [bootstrap-select](http://silviomoreto.github.io/bootstrap-select/) 1.6.0 currently evaluating
