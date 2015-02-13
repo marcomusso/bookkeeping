@@ -11,7 +11,7 @@ sub startup {
   my $self = shift;
 
   $self->moniker('bookkeeping');
-  $self->secrets(['efff74625f7sdrfh3wt95gh45g'],['This secret is used _only_ for validation']);
+  $self->secrets(['CHANGE_ME'],['This secret is used _only_ for validation']);
   $self->sessions->default_expiration(60*60*24); # 24 ore
   my $version = $self->defaults({version => '0.1&alpha;'});
   my $mode = $self->mode;
@@ -52,11 +52,14 @@ sub startup {
         return $level;
       }
     );
-    # $self->renderer->add_helper(ip => sub {
-    #   my $self = shift;
-    #   my $for  = $self->req->headers->header('X-Forwarded-For');
-    #   return $for && $for !~ /unknown/i ? $for : undef || $self->req->headers->header('X-Real-IP') || $self->tx->{remote_address};
-    # });
+    $self->helper(
+      ip => sub {
+        my $self = shift;
+        my $for  = $self->req->headers->header('X-Forwarded-For');
+        # if you want to define your own "X-Real-IP" header (or whatever)
+        return $for && $for !~ /unknown/i ? $for : undef || $self->req->headers->header('X-Real-IP') || $self->tx->{remote_address};
+      }
+    );
   #################################################################################
 
   #################################################################################
