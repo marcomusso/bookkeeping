@@ -8,6 +8,18 @@
 
   % if ($self->session('email')) {
 
+    %= javascript '/d3-tip-0.6.6/index.js'
+    %= stylesheet begin
+      .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+    %= end
     <div class="row">
       <div class="col-md-12 col-lg-12">
         <div class="panel panel-primary">

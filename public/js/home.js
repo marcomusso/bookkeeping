@@ -17,6 +17,7 @@ var width;  // before margins
 var w;      // after margins
 var height; // before margins
 var h=500;  // after margins
+var tip;    // tooltip
 
 function drawAxis(params){
   if(params.initialize === true){
@@ -100,7 +101,9 @@ function plot(params) {
       .data(params.data)
       .enter()
         .append("rect")
-        .classed("bar", true);
+        .classed("bar", true)
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
     // BAR LABELS
     this.selectAll(".bar-label")
       .data(params.data)
@@ -168,6 +171,14 @@ function initPage() {
   width = w - margin.left - margin.right;
   height = h - margin.top - margin.bottom;
 
+  tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .html(function(d) {
+      var pd=new Date(d.paid_date);
+      if (d.paid_date==='') { pd_string='-'; } else { pd_string=pd.toLocaleDateString('it-IT'); }
+      return i18n.t("Invoice id")+': '+d.invoice_id+'<br>'+i18n.t("Workorder")+': '+d.workorder+'<br>'+i18n.t("Paid on")+': '+pd_string;
+    });
+
   if (mySessionData['email'] !== '') {
     $.getJSON(myPrefix+'/api/receivableinvoices.json', function(data){
       InvoicesData=data;
@@ -229,7 +240,7 @@ function initPage() {
           .append("svg")
           .attr("id", "chart")
           .attr("width", w)
-          .attr("height", h);
+          .attr("height", h).call(tip);
       chart = svg.append("g")
             .classed("display", true)
             .attr("transform", "translate("+margin.left+","+margin.top +")");

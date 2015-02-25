@@ -6,5 +6,7 @@
   "Invoice amount": "Importo fattura (€)",
   "Sort by invoice date": "Ordina per data fattura",
   "ascending": "crescente",
-  "descending": "descrescente"
+  "descending": "descrescente",
+  "Workorder": "Commessa",
+  "Paid on": "Pagata il"
 }
