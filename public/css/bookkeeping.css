@@ -61,6 +61,11 @@ body {
   content: '';
 }
 
+/* get rid of arrow up in submenu */
+.dropdown-menu .dropdown-fix::after {
+    content: none;
+}
+
 .navbar .navbar-right > li > .dropdown-menu:before, .navbar .nav > li > .dropdown-menu.navbar-right:before {right: 12px; left: auto;} .navbar .navbar-right > li > .dropdown-menu:after, .navbar .nav > li > .dropdown-menu.navbar-right:after {right: 13px; left: auto;}
 
 /* Open dropdown-menu on hover */
