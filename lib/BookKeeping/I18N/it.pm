@@ -35,9 +35,12 @@ our %Lexicon = (
     'Configuration' => 'Configurazione',
     'Manage books' => 'Gestione contabilità',
   # PAGE: BOOKS
+    'Receivable invoices' => 'Fatture attive',
+    'Payable invoices' => 'Fatture passive',
     'Add receivable invoice' => 'Aggiungi fattura attiva',
     'Add payable invoice' => 'Aggiungi fattura passiva',
     'VAT %' => 'IVA %',
+    'Edit' => 'Modifica',
   # Footer
     'Contact us' => 'Contattaci',
     'Help' => 'Aiuto',

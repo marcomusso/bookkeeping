@@ -8,22 +8,22 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h4 class="panel-title">
-          Receivable invoices<span class="pull-right"><button id="addReceivableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add receivable invoice"><i class="fa fa-plus"></i></button></span>
+          <%=l 'Receivable invoices' %><span class="pull-right"><button id="addReceivableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add receivable invoice"><i class="fa fa-plus"></i></button></span>
         </h4>
       </div>
       <div class="panel-body">
         <table id="receivableInvoicesTable" class="table table-striped cell-border" style="font-size:12px;">
           <thead>
             <tr>
-              <th class="text-center"><%=l 'Invoice ID'%></th>
-              <th class="text-center"><%=l 'Invoice date'%></th>
-              <th class="text-center"><%=l 'Workorder'%></th>
-              <th class="text-center" title="<%=l 'Total before VAT and down payment'%>"><%=l 'Total (ex. VAT)'%></th>
-              <th class="text-center"><%=l 'VAT %'%></th>
-              <th class="text-center" title="<%=l 'Expected amount'%>"><%=l 'Bank transfer'%></th>
-              <th class="text-center"><%=l 'Due date'%></th>
-              <th class="text-center"><%=l 'Paid date'%></th>
-              <th class="text-center"><%=l 'File?'%></th>
+              <th class="text-center"><%=l 'Invoice ID' %></th>
+              <th class="text-center"><%=l 'Invoice date' %></th>
+              <th class="text-center"><%=l 'Workorder' %></th>
+              <th class="text-center" title="<%=l 'Total before VAT and down payment'%>"><%=l 'Total (ex. VAT)' %></th>
+              <th class="text-center"><%=l 'VAT %' %></th>
+              <th class="text-center" title="<%=l 'Expected amount'%>"><%=l 'Bank transfer' %></th>
+              <th class="text-center"><%=l 'Due date' %></th>
+              <th class="text-center"><%=l 'Paid date' %></th>
+              <th class="text-center"><%=l 'Edit' %></th>
             </tr>
           </thead>
           <tbody>
@@ -42,21 +42,21 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h4 class="panel-title">
-          Payable invoices<span class="pull-right"><button id="addPayableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add payable invoice"><i class="fa fa-plus"></i></button></span>
+          <%=l 'Payable invoices' %><span class="pull-right"><button id="addPayableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add payable invoice"><i class="fa fa-plus"></i></button></span>
         </h4>
       </div>
       <div class="panel-body">
         <table id="payableInvoicesTable" class="table table-striped cell-border" style="font-size:12px;">
           <thead>
             <tr>
-              <th class="text-center"><%=l 'Invoice ID'%></th>
-              <th class="text-center"><%=l 'Invoice date'%></th>
-              <th class="text-center"><%=l 'Supplier'%></th>
-              <th class="text-center"><%=l 'Total'%></th>
-              <th class="text-center"><%=l 'Due date'%></th>
-              <th class="text-center"><%=l 'Paid date'%></th>
-              <th class="text-center"><%=l 'Notes'%></th>
-              <th class="text-center"><%=l 'File?'%></th>
+              <th class="text-center"><%=l 'Invoice ID' %></th>
+              <th class="text-center"><%=l 'Invoice date' %></th>
+              <th class="text-center"><%=l 'Supplier' %></th>
+              <th class="text-center"><%=l 'Total' %></th>
+              <th class="text-center"><%=l 'Due date' %></th>
+              <th class="text-center"><%=l 'Paid date' %></th>
+              <th class="text-center"><%=l 'Notes' %></th>
+              <th class="text-center"><%=l 'Edit' %></th>
             </tr>
           </thead>
           <tbody>
@@ -118,6 +118,10 @@
         <div class="input-group">
           <span class="input-group-addon">Notes</span>
           <input id="notes" name="notes" type="textarea" class="form-control" placeholder="notes">
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">PDF file</span>
+          <input id="fileupload" name="upload" type="file" class="form-control" placeholder="upload">
         </div>
       </div>
       <div class="modal-footer">
