@@ -19,6 +19,7 @@ our %Lexicon = (
     'Company summary' => 'Riepilogo società',
     'Company name' => 'Nome',
     'Company type' => 'Tipo',
+    'VAT #' => 'P.IVA',
   # TOP NAVBAR MENU
     'Invoice' => 'Fattura',
     'Invoices' => 'Fatture',
@@ -44,7 +45,7 @@ our %Lexicon = (
     'Workorder' => 'Commessa',
     'Total (ex. VAT)' => 'Totale (IVA escl.)',
       'Total before VAT and down payment' => 'Totale prima di IVA e ritenuta d\'acconto', # tooltip
-    'VAT' => 'P.IVA',
+    'VAT' => 'IVA',
     'Bank transfer' => 'Bonifico',
       'Expected amount' => 'Importo atteso', # tooltip
     'Due date' => 'Scadenza fattura',

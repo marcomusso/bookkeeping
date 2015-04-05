@@ -24,13 +24,13 @@
       <div class="col-md-12 col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title"><%=l 'Company summary'%></h3>
+            <h3 class="panel-title"><%=l 'Company summary' %></h3>
           </div>
           <div id="company-summary" class="panel-body">
             <div class="row">
-              <div class="col-md-col-4 col-lg-4"><%=l 'Company name'%>: <span id="company-name"></span></div>
-              <div class="col-md-col-4 col-lg-4"><%=l 'Company type'%>: <span id="company-type"></span></div>
-              <div class="col-md-col-4 col-lg-4"><%=l 'VAT'%>: <span id="vat"></span></div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'Company name' %>: <span id="company-name"></span></div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'Company type' %>: <span id="company-type"></span></div>
+              <div class="col-md-col-4 col-lg-4"><%=l 'VAT #' %>: <span id="vat"></span></div>
             </div>
             <hr>
             <div class="row">
