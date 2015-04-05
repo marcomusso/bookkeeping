@@ -76,12 +76,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add receivable invoice</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit receivable invoice</h4>
       </div>
       <div class="modal-body">
         <div class="input-group">
           <span class="input-group-addon">Invoice ID</span>
-          <input id="invoiceID" name="invoiceID" type="text" class="form-control" placeholder="example: 0001/2015">
+          <input id="invoiceID" name="invoiceID" type="text" class="form-control" placeholder="example: 0001-2015">
         </div>
         <br>
         <div class="input-group">
@@ -119,6 +119,7 @@
           <span class="input-group-addon">Notes</span>
           <input id="notes" name="notes" type="textarea" class="form-control" placeholder="notes">
         </div>
+        <br>
         <div class="input-group">
           <span class="input-group-addon">PDF file</span>
           <input id="fileupload" name="upload" type="file" class="form-control" placeholder="upload">
