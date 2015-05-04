@@ -4,9 +4,189 @@
 %= javascript '/js/books.js'
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-center">
-    <div class="list-group">
-      <a href="#" class="list-group-item"><%=l 'To be implemented' %>.</a>
+  <div class="col-md-12 col-lg-12 text-center">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <%=l 'Receivable invoices' %><span class="pull-right"><button id="addReceivableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add receivable invoice"><i class="fa fa-plus"></i></button></span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <table id="receivableInvoicesTable" class="table table-striped cell-border" style="font-size:12px;">
+          <thead>
+            <tr>
+              <th class="text-center"><%=l 'Invoice ID' %></th>
+              <th class="text-center"><%=l 'Invoice date' %></th>
+              <th class="text-center"><%=l 'Workorder' %></th>
+              <th class="text-center" title="<%=l 'Total before VAT and down payment'%>"><%=l 'Total (ex. VAT)' %></th>
+              <th class="text-center"><%=l 'VAT %' %></th>
+              <th class="text-center" title="<%=l 'Expected amount'%>"><%=l 'Bank transfer' %></th>
+              <th class="text-center"><%=l 'Due date' %></th>
+              <th class="text-center"><%=l 'Paid date' %></th>
+              <th class="text-center"><%=l 'Edit' %></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div>
+      <div class="panel-footer text-center">Found <span id="receivableInvoicesCount">0</span> invoice(s).</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12 text-center">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <%=l 'Payable invoices' %><span class="pull-right"><button id="addPayableInvoice" class="btn btn-xs btn-default" data-toggle="tooltip" title="Add payable invoice"><i class="fa fa-plus"></i></button></span>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <table id="payableInvoicesTable" class="table table-striped cell-border" style="font-size:12px;">
+          <thead>
+            <tr>
+              <th class="text-center"><%=l 'Invoice ID' %></th>
+              <th class="text-center"><%=l 'Invoice date' %></th>
+              <th class="text-center"><%=l 'Supplier' %></th>
+              <th class="text-center"><%=l 'Total' %></th>
+              <th class="text-center"><%=l 'Due date' %></th>
+              <th class="text-center"><%=l 'Paid date' %></th>
+              <th class="text-center"><%=l 'Notes' %></th>
+              <th class="text-center"><%=l 'Edit' %></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div>
+      <div class="panel-footer text-center">Found <span id="payableInvoicesCount">0</span> invoice(s).</div>
+    </div>
+  </div>
+</div>
+
+<%# Modal for inserting receivable invoice data %>
+<div class="modal fade" id="addReceivableInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit receivable invoice</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon">Invoice ID</span>
+          <input id="invoiceID" name="invoiceID" type="text" class="form-control" placeholder="example: 0001-2015">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Invoice date</span>
+          <input id="invoiceDate" name="invoiceDate" type="date" class="form-control" placeholder="">
+          <span class="input-group-addon">Due date</span>
+          <input id="invoiceDueDate" name="invoiceDueDate" type="date" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Workorder</span>
+          <input id="workorder" name="workorder" type="text" class="form-control disabled" placeholder="example: customer name/project name">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Resource/person name</span>
+          <input id="resource" name="resource" type="text" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Billable units</span>
+          <input id="units" name="units" type="number" class="form-control" placeholder="example: number of days/hours of work">
+          <span class="input-group-addon">Cost per unit</span>
+          <input id="costPerUnit" name="costPerUnit" type="number" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">VAT (%)</span>
+          <input id="vat" name="vat" type="number" class="form-control" placeholder="">
+          <span class="input-group-addon">Expected bank transfer/payment</span>
+          <input id="bankTransfer" name="bankTransfer" type="text" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Notes</span>
+          <input id="notes" name="notes" type="textarea" class="form-control" placeholder="notes">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">PDF file</span>
+          <input id="fileupload" name="upload" type="file" class="form-control" placeholder="upload">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="saveReceivableInvoice" type="button" class="btn btn-primary">Add invoice</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Modal for inserting payable invoice data %>
+<div class="modal fade" id="addPayableInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add payable invoice</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon">Invoice ID</span>
+          <input id="invoiceID" name="invoiceID" type="text" class="form-control" placeholder="example: 0001/2015">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Invoice date</span>
+          <input id="invoiceDate" name="invoiceDate" type="date" class="form-control" placeholder="">
+          <span class="input-group-addon">Due date</span>
+          <input id="invoiceDueDate" name="invoiceDueDate" type="date" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Workorder</span>
+          <input id="workorder" name="workorder" type="text" class="form-control disabled" placeholder="example: customer name/project name">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Resource/person name</span>
+          <input id="resource" name="resource" type="text" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Billable units</span>
+          <input id="units" name="units" type="number" class="form-control" placeholder="example: number of days/hours of work">
+          <span class="input-group-addon">Cost per unit</span>
+          <input id="costPerUnit" name="costPerUnit" type="number" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">VAT (%)</span>
+          <input id="vat" name="vat" type="number" class="form-control" placeholder="">
+          <span class="input-group-addon">Expected bank transfer/payment</span>
+          <input id="bankTransfer" name="bankTransfer" type="text" class="form-control" placeholder="">
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Notes</span>
+          <input id="notes" name="notes" type="textarea" class="form-control" placeholder="notes">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="savePayableInvoice" type="button" class="btn btn-primary">Add invoice</button>
+      </div>
     </div>
   </div>
 </div>

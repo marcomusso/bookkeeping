@@ -138,6 +138,7 @@ $("document").ready(function() {
       preload: ['en']
     },
     function(t) {
-    console.log('i18next init done');
-  });
+      console.log('i18next init done');
+    }
+  );
 });
