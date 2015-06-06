@@ -163,7 +163,7 @@ sub getReceivableInvoices {
   }
 
   my $invoices=$db->get_collection('invoices_receivable');
-  my $all_invoices=$invoices->find({'invoice_date' => { '$gte' => $startdate, '$lte' => $enddate } });
+  my $all_invoices=$invoices->find({'invoice_date' => { '$gte' => $startdate, '$lte' => $enddate } })->sort( { invoice_id => 1 } );
 
   while (my $inv = $all_invoices->next) {
       # JSON array
